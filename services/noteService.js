@@ -1,5 +1,4 @@
 import databaseService from './databaseService';
-import { ID } from 'react-native-appwrite';
 
 //appwrite db and collection (table) id
 
@@ -15,7 +14,25 @@ const noteService = {
     }
     return { data: response.documents };
   },
+
   //Create
+  async createNote(text) {
+    if (!text) {
+      return { error: 'Note text cannot be empty' };
+    }
+
+    const data = {
+      text,
+    };
+
+    const response = await databaseService.createDocument(dbId, colId, data);
+
+    if (response?.error) {
+      return { error: response.error };
+    }
+
+    return { data: response };
+  },
 
   //Update
 
