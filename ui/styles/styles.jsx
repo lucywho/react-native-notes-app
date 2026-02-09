@@ -29,7 +29,8 @@ export const styles = StyleSheet.create({
   },
   noteItem: {
     flexDirection: 'row',
-    justifyContent: 'space-between',
+    justifyContent: 'space-around',
+    width: '100%',
     backgroundColor: 'rgba(128, 64, 191, 0.1)',
     borderRadius: 5,
     padding: 10,
@@ -39,5 +40,25 @@ export const styles = StyleSheet.create({
   },
   noteText: {
     fontSize: 16,
+    flex: 1,
+    marginRight: 10,
+  },
+  errorText: {
+    color: '#ba1745',
+    fontSize: 16,
+    textAlign: 'center',
+    marginBottom: 10,
+  },
+  deleteNoteText: {
+    color: '#ba1745',
+    fontSize: 16,
+    fontWeight: 'bold',
+    marginLeft: 10,
+  },
+  updateNoteText: {
+    color: '#007380',
+    fontSize: 16,
+    fontWeight: 'bold',
+    marginLeft: 10,
   },
 });

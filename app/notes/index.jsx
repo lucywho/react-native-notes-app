@@ -2,7 +2,13 @@ import { useState, useEffect } from 'react';
 import NoteList from '@/components/NoteList';
 import { buttonStyles, styles } from '@/ui/styles';
 import AddNoteModal from '@/components/AddNoteModal';
-import { Text, TouchableOpacity, View, Alert } from 'react-native';
+import {
+  Text,
+  TouchableOpacity,
+  View,
+  Alert,
+  ActivityIndicator,
+} from 'react-native';
 import noteService from '@/services/noteService';
 
 const NoteScreen = () => {
@@ -49,9 +55,37 @@ const NoteScreen = () => {
     setModalVisible(false);
   };
 
+  const deleteNote = async (id) => {
+    Alert.alert('Delete Note', 'are you sure you want to delete this note?', [
+      {
+        text: 'Cancel',
+        style: 'cancel',
+      },
+      {
+        text: 'Delete',
+        style: 'destructive',
+        onPress: async () => {
+          const response = await noteService.deleteNote(id);
+          if (response.error) {
+            Alert.alert('Error: ', response.error);
+          } else {
+            setNotes(notes.filter((note) => note.$id !== id));
+          }
+        },
+      },
+    ]);
+  };
+
   return (
     <View style={styles.container}>
-      <NoteList notes={notes} />
+      {loading ? (
+        <ActivityIndicator size='large' color='rebeccapurple' />
+      ) : (
+        <>
+          {error && <Text style={styles.errorText}>{error}</Text>}
+          <NoteList notes={notes} onDelete={deleteNote} />
+        </>
+      )}
       <TouchableOpacity
         style={buttonStyles.addButton}
         onPress={() => setModalVisible(true)}
