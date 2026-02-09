@@ -1,7 +1,8 @@
-import PostItImage from '@/assets/images/post-it.png';
-import { buttonStyles, styles } from '@/ui/styles';
 import { useRouter } from 'expo-router';
+import { buttonStyles, styles } from '@/ui/styles';
+import PostItImage from '@/assets/images/post-it.png';
 import { Image, Text, TouchableOpacity, View } from 'react-native';
+import AppwriteConnectionTest from '@/components/AppwriteConnectionTest';
 
 const HomeScreen = () => {
   const router = useRouter();
@@ -20,6 +21,7 @@ const HomeScreen = () => {
       >
         <Text style={buttonStyles.buttonText}>Get Started</Text>
       </TouchableOpacity>
+      <AppwriteConnectionTest />
     </View>
   );
 };
