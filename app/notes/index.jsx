@@ -27,7 +27,7 @@ const NoteScreen = () => {
     if (!authLoading && !user) {
       router.replace('/auth');
     }
-  }, [user, authLoading, router]);
+  }, [user, authLoading]);
 
   useEffect(() => {
     if (user) {
@@ -38,7 +38,7 @@ const NoteScreen = () => {
   const fetchNotes = async () => {
     setLoading(true);
 
-    const response = await noteService.getNotes();
+    const response = await noteService.getNotes(user.$id);
 
     if (response.error) {
       setError(response.error);
@@ -56,7 +56,7 @@ const NoteScreen = () => {
       return;
     }
 
-    const response = await noteService.createNote(newNote);
+    const response = await noteService.createNote(user.$id, newNote);
 
     if (response.error) {
       Alert.alert('Error: ', response.error);
@@ -114,7 +114,11 @@ const NoteScreen = () => {
       ) : (
         <>
           {error && <Text style={styles.errorText}>{error}</Text>}
-          <NoteList notes={notes} onDelete={deleteNote} onEdit={editNote} />
+          {notes.length === 0 ? (
+            <Text style={styles.errorText}>No notes found</Text>
+          ) : (
+            <NoteList notes={notes} onDelete={deleteNote} onEdit={editNote} />
+          )}
         </>
       )}
       <TouchableOpacity

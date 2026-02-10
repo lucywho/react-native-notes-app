@@ -3,13 +3,12 @@ import { ID } from 'react-native-appwrite';
 
 const authService = {
   async register(email, password) {
-    const uniqueId = ID.unique();
     try {
-      const response = await account.create({ uniqueId, email, password });
+      const response = await account.create(ID.unique(), email, password);
       return response;
     } catch (error) {
       return {
-        error: error.message || 'Registration failed. Please try again.',
+        error: error.message || 'Registration failed. Please try agian',
       };
     }
   },
@@ -36,7 +35,7 @@ const authService = {
 
   async logout() {
     try {
-      await account.deleteCurrentSession('current');
+      await account.deleteSessions('current');
       return { success: true };
     } catch (error) {
       return { error: error.message || 'Failed to logout.' };

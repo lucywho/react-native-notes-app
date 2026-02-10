@@ -18,4 +18,16 @@ export const layoutStyles = StyleSheet.create({
       fontWeight: 'bold',
     },
   },
+  logoutButton: {
+    marginRight: 10,
+    paddingVertical: 5,
+    paddingHorizontal: 10,
+    borderRadius: 5,
+    backgroundColor: 'antiquewhite',
+  },
+  logoutButtonText: {
+    fontSize: 16,
+    color: 'rebeccapurple',
+    fontWeight: 'bold',
+  },
 });

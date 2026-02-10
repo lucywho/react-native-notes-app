@@ -1,11 +1,34 @@
 import { useRouter } from 'expo-router';
+import { useEffect } from 'react';
+import { useAuth } from '@/contexts/AuthContext';
 import { buttonStyles, styles } from '@/ui/styles';
 import PostItImage from '@/assets/images/post-it.png';
-import { Image, Text, TouchableOpacity, View } from 'react-native';
+import {
+  Image,
+  Text,
+  TouchableOpacity,
+  View,
+  ActivityIndicator,
+} from 'react-native';
 import AppwriteConnectionTest from '@/components/AppwriteConnectionTest';
 
 const HomeScreen = () => {
+  const { user, loading } = useAuth();
   const router = useRouter();
+
+  useEffect(() => {
+    if (!loading && user) {
+      router.replace('/notes');
+    }
+  }, [user, loading]);
+
+  if (loading) {
+    return (
+      <View style={styles.container}>
+        <ActivityIndicator size='large' color='rebeccapurple' />
+      </View>
+    );
+  }
 
   return (
     <View style={styles.container}>

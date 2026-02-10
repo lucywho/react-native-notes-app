@@ -27,6 +27,10 @@ export const styles = StyleSheet.create({
     color: '#8040bf',
     marginBottom: 20,
   },
+  linkText: {
+    color: 'green',
+    textDecorationLine: 'underline',
+  },
   noteItem: {
     flexDirection: 'row',
     justifyContent: 'space-between',
@@ -76,5 +80,14 @@ export const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: '#8040bf',
     borderRadius: 4,
+  },
+  authInputField: {
+    marginBottom: 10,
+    borderWidth: 1,
+    borderColor: '#8040bf',
+    borderRadius: 4,
+    paddingVertical: 4,
+    paddingHorizontal: 6,
+    width: '70%',
   },
 });
