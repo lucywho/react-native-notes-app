@@ -14,9 +14,9 @@ const databaseService = {
   },
 
   //Create
-  async createDocument(dbId, colId, data, id = null) {
+  async createDocument(dbId, colId, data, id) {
     try {
-      // Appwrite requires documentId - use ID.unique() when not provided
+      // Appwrite requires a documentId; default to ID.unique() when caller doesn't provide one
       const documentId = id || ID.unique();
       return await database.createDocument(dbId, colId, documentId, data);
     } catch (error) {
@@ -26,6 +26,15 @@ const databaseService = {
   },
 
   //Update
+  async updateDocument(dbId, colId, id, data) {
+    try {
+      const response = await database.updateDocument(dbId, colId, id, data);
+      return response;
+    } catch (error) {
+      console.error('Error updating document:', error.message);
+      return { error: error.message };
+    }
+  },
 
   //Delete
   async deleteDocument(dbId, colId, id) {

@@ -29,7 +29,7 @@ export const styles = StyleSheet.create({
   },
   noteItem: {
     flexDirection: 'row',
-    justifyContent: 'space-around',
+    justifyContent: 'space-between',
     width: '100%',
     backgroundColor: 'rgba(128, 64, 191, 0.1)',
     borderRadius: 5,
@@ -49,16 +49,32 @@ export const styles = StyleSheet.create({
     textAlign: 'center',
     marginBottom: 10,
   },
+  noteActions: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'flex-end',
+    width: 70,
+  },
   deleteNoteText: {
     color: '#ba1745',
-    fontSize: 16,
+    fontSize: 18,
     fontWeight: 'bold',
     marginLeft: 10,
   },
-  updateNoteText: {
+  editNoteText: {
     color: '#007380',
-    fontSize: 16,
+    fontSize: 18,
     fontWeight: 'bold',
     marginLeft: 10,
+  },
+  input: {
+    flex: 1,
+    fontSize: 16,
+    marginRight: 10,
+    paddingVertical: 4,
+    paddingHorizontal: 6,
+    borderWidth: 1,
+    borderColor: '#8040bf',
+    borderRadius: 4,
   },
 });
