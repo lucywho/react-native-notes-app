@@ -26,6 +26,16 @@ export const buttonStyles = StyleSheet.create({
     fontSize: 16,
     fontWeight: 'bold',
   },
+  landscapeAddButton: {
+    position: 'relative',
+    height: 50,
+    backgroundColor: 'green',
+    borderRadius: 8,
+    alignItems: 'center',
+    justifyContent: 'center',
+    padding: 15,
+    marginLeft: 10,
+  },
   cancelButton: {
     backgroundColor: '#ba1745',
     padding: 10,
@@ -56,5 +66,11 @@ export const buttonStyles = StyleSheet.create({
     flexDirection: 'row',
     gap: 5,
     marginTop: 20,
+  },
+  landscapeButtonContainer: {
+    flexDirection: 'column',
+    flex: 0,
+    gap: 5,
+    justifyContent: 'flex-end',
   },
 });

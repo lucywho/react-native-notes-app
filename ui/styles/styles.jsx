@@ -8,6 +8,13 @@ export const styles = StyleSheet.create({
     padding: 20,
     backgroundColor: 'antiquewhite',
   },
+  landscapeContainer: {
+    flex: 1,
+    padding: 10,
+    flexDirection: 'row',
+    alignItems: 'stretch',
+    justifyContent: 'flex-start',
+  },
   image: {
     width: 100,
     height: 100,

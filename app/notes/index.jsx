@@ -9,6 +9,7 @@ import {
   View,
   Alert,
   ActivityIndicator,
+  useWindowDimensions,
 } from 'react-native';
 import noteService from '@/services/noteService';
 import { useAuth } from '@/contexts/AuthContext';
@@ -16,6 +17,8 @@ import { useAuth } from '@/contexts/AuthContext';
 const NoteScreen = () => {
   const router = useRouter();
   const { user, loading: authLoading } = useAuth();
+  const { width, height } = useWindowDimensions();
+  const isLandscape = width > height;
 
   const [notes, setNotes] = useState([]);
   const [modalVisible, setModalVisible] = useState(false);
@@ -108,21 +111,25 @@ const NoteScreen = () => {
   };
 
   return (
-    <View style={styles.container}>
-      {loading ? (
-        <ActivityIndicator size='large' color='rebeccapurple' />
-      ) : (
-        <>
-          {error && <Text style={styles.errorText}>{error}</Text>}
-          {notes.length === 0 ? (
-            <Text style={styles.errorText}>No notes found</Text>
-          ) : (
-            <NoteList notes={notes} onDelete={deleteNote} onEdit={editNote} />
-          )}
-        </>
-      )}
+    <View style={isLandscape ? styles.landscapeContainer : styles.container}>
+      <View style={{ flex: 1 }}>
+        {loading ? (
+          <ActivityIndicator size='large' color='rebeccapurple' />
+        ) : (
+          <>
+            {error && <Text style={styles.errorText}>{error}</Text>}
+            {notes.length === 0 ? (
+              <Text style={styles.errorText}>No notes found</Text>
+            ) : (
+              <NoteList notes={notes} onDelete={deleteNote} onEdit={editNote} />
+            )}
+          </>
+        )}
+      </View>
       <TouchableOpacity
-        style={buttonStyles.addButton}
+        style={
+          isLandscape ? buttonStyles.landscapeAddButton : buttonStyles.addButton
+        }
         onPress={() => setModalVisible(true)}
       >
         <Text style={buttonStyles.addButtonText}>+ Add Note</Text>

@@ -14,6 +14,15 @@ export const modalStyles = StyleSheet.create({
     width: '80%',
     maxHeight: '80%',
   },
+  landscapeContent: {
+    backgroundColor: 'white',
+    padding: 20,
+    borderRadius: 10,
+    flexDirection: 'row',
+    width: '90%',
+    maxHeight: '70%',
+    gap: 16,
+  },
   title: {
     fontSize: 24,
     fontWeight: 'bold',
