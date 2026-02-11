@@ -41,6 +41,7 @@ const AddNoteModal = ({
           <View style={isLandscape ? { flex: 1 } : undefined}>
             <Text style={modalStyles.title}>Add New Note</Text>
             <TextInput
+              testID='add-note-input'
               style={modalStyles.input}
               value={newNote}
               onChangeText={setNewNote}
@@ -57,6 +58,7 @@ const AddNoteModal = ({
             }
           >
             <TouchableOpacity
+              testID='add-note-cancel'
               style={[
                 buttonStyles.cancelButton,
                 isLandscape && { maxHeight: 50 },
@@ -69,6 +71,7 @@ const AddNoteModal = ({
               <Text style={buttonStyles.buttonText}>Cancel</Text>
             </TouchableOpacity>
             <TouchableOpacity
+              testID='add-note-save'
               style={[
                 buttonStyles.saveButton,
                 isLandscape && { maxHeight: 50 },

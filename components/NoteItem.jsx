@@ -15,6 +15,7 @@ const NoteItem = ({ note, onDelete, onEdit }) => {
     <View style={styles.noteItem}>
       {isEditing ? (
         <TextInput
+          testID='note-item-input'
           style={styles.input}
           value={editedText}
           onChangeText={setEditedText}
@@ -24,11 +25,14 @@ const NoteItem = ({ note, onDelete, onEdit }) => {
           returnKeyType='done'
         />
       ) : (
-        <Text style={styles.noteText}>{note.text}</Text>
+        <Text testID='note-item-text' style={styles.noteText}>
+          {note.text}
+        </Text>
       )}
       <View style={styles.noteActions}>
         {isEditing ? (
           <TouchableOpacity
+            testID='note-item-save'
             onPress={() => {
               handleSave(editedText);
               inputRef.current?.blur();
@@ -37,12 +41,18 @@ const NoteItem = ({ note, onDelete, onEdit }) => {
             <Text style={styles.editNoteText}>💾</Text>
           </TouchableOpacity>
         ) : (
-          <TouchableOpacity onPress={() => setIsEditing(true)}>
+          <TouchableOpacity
+            testID='note-item-edit'
+            onPress={() => setIsEditing(true)}
+          >
             <Text style={styles.editNoteText}>✏️</Text>
           </TouchableOpacity>
         )}
 
-        <TouchableOpacity onPress={() => onDelete(note.$id)}>
+        <TouchableOpacity
+          testID='note-item-delete'
+          onPress={() => onDelete(note.$id)}
+        >
           <Text style={styles.deleteNoteText}>❌</Text>
         </TouchableOpacity>
       </View>

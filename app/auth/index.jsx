@@ -44,9 +44,12 @@ const AuthScreen = () => {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>{isRegistering ? 'Sign Up' : 'Login'}</Text>
+      <Text testID='auth-title' style={styles.title}>
+        {isRegistering ? 'Sign Up' : 'Login'}
+      </Text>
       {error ? <Text style={styles.errorText}>{error}</Text> : null}
       <TextInput
+        testID='auth-email-input'
         style={styles.authInputField}
         value={email}
         onChangeText={setEmail}
@@ -58,6 +61,7 @@ const AuthScreen = () => {
         placeholderTextColor='#8040bf'
       />
       <TextInput
+        testID='auth-password-input'
         style={styles.authInputField}
         value={password}
         onChangeText={setPassword}
@@ -70,6 +74,7 @@ const AuthScreen = () => {
       />
       {isRegistering && (
         <TextInput
+          testID='auth-confirm-password-input'
           style={styles.authInputField}
           value={confirmPassword}
           onChangeText={setConfirmPassword}
@@ -83,6 +88,7 @@ const AuthScreen = () => {
       )}
 
       <TouchableOpacity
+        testID='auth-submit-button'
         style={[
           buttonStyles.button,
           { backgroundColor: 'green', marginTop: 20 },
@@ -94,7 +100,10 @@ const AuthScreen = () => {
         </Text>
       </TouchableOpacity>
 
-      <TouchableOpacity onPress={() => setIsRegistering(!isRegistering)}>
+      <TouchableOpacity
+        testID='auth-toggle-mode'
+        onPress={() => setIsRegistering(!isRegistering)}
+      >
         <Text style={[styles.subTitle, { marginTop: 20 }]}>
           {isRegistering ? (
             <Text>
