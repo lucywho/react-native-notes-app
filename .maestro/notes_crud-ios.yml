@@ -1,0 +1,51 @@
+# Notes CRUD flow – iOS Simulator (Expo Go)
+
+appId: host.exp.Exponent
+---
+- runFlow:
+    file: login-ios.yml
+- extendedWaitUntil:
+    visible:
+      id: 'notes-add-button'
+    timeout: 5000
+# Add note
+- tapOn:
+    id: 'notes-add-button'
+- extendedWaitUntil:
+    visible: 'Add New Note'
+    timeout: 5000
+- tapOn:
+    id: 'add-note-input'
+- inputText: 'E2E test note'
+- tapOn:
+    id: 'add-note-save'
+- extendedWaitUntil:
+    visible: 'E2E test note'
+    timeout: 5000
+# Edit note
+- tapOn:
+    id: 'note-item-edit'
+- extendedWaitUntil:
+    visible:
+      id: 'note-item-input'
+    timeout: 5000
+- tapOn:
+    id: 'note-item-input'
+- inputText: ' - edited'
+- tapOn:
+    id: 'note-item-save'
+- extendedWaitUntil:
+    visible: 'E2E test note - edited'
+    timeout: 5000
+# Delete note (confirmation dialog)
+- tapOn:
+    id: 'note-item-delete'
+- extendedWaitUntil:
+    visible: 'Delete'
+    timeout: 3000
+- tapOn:
+    text: 'Delete'
+- extendedWaitUntil:
+    visible: 'No notes found'
+    timeout: 5000
+- assertVisible: 'No notes found'

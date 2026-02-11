@@ -14,13 +14,13 @@ url: http://localhost:8081
 - assertVisible: 'Login'
 - tapOn:
     id: 'auth-email-input'
-- inputText: '12345@email.com'
+- inputText: '1234@email.com'
 - tapOn:
     id: 'auth-password-input'
 - inputText: '123456pss'
 - tapOn:
     id: 'auth-submit-button'
 - extendedWaitUntil:
-    visible: 'Add Note'
+    visible: '+ Add Note'
     timeout: 15000
-- assertVisible: 'Add Note'
+- assertVisible: '+ Add Note'
