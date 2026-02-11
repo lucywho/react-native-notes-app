@@ -1,0 +1,26 @@
+# Login flow – iOS Simulator (Expo Go)
+appId: host.exp.Exponent
+---
+- launchApp:
+    clearState: false
+- extendedWaitUntil:
+    visible: 'Get Started'
+    timeout: 20000
+- tapOn:
+    id: 'home-get-started'
+- extendedWaitUntil:
+    visible: 'Login'
+    timeout: 10000
+- assertVisible: 'Login'
+- tapOn:
+    id: 'auth-email-input'
+- inputText: '12345@email.com'
+- tapOn:
+    id: 'auth-password-input'
+- inputText: '123456pss'
+- tapOn:
+    id: 'auth-submit-button'
+- extendedWaitUntil:
+    visible: 'Add Note'
+    timeout: 15000
+- assertVisible: 'Add Note'

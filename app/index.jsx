@@ -39,6 +39,7 @@ const HomeScreen = () => {
         Create and manage your notes effortlessly
       </Text>
       <TouchableOpacity
+        testID='home-get-started'
         style={buttonStyles.button}
         onPress={() => router.push('/notes')}
       >

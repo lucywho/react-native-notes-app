@@ -36,6 +36,8 @@ const AuthScreen = () => {
 
     if (response?.error) {
       Alert.alert('Error: ', response.error);
+      setError(response.error);
+      console.log(response.error);
       return;
     }
 
@@ -47,9 +49,15 @@ const AuthScreen = () => {
       <Text testID='auth-title' style={styles.title}>
         {isRegistering ? 'Sign Up' : 'Login'}
       </Text>
-      {error ? <Text style={styles.errorText}>{error}</Text> : null}
+      {error ? (
+        <Text testID='auth-error' style={styles.errorText}>
+          {error}
+        </Text>
+      ) : null}
       <TextInput
         testID='auth-email-input'
+        nativeID='auth-email-input'
+        accessibilityLabel='Email input'
         style={styles.authInputField}
         value={email}
         onChangeText={setEmail}
@@ -62,6 +70,8 @@ const AuthScreen = () => {
       />
       <TextInput
         testID='auth-password-input'
+        nativeID='auth-password-input'
+        accessibilityLabel='Password input'
         style={styles.authInputField}
         value={password}
         onChangeText={setPassword}

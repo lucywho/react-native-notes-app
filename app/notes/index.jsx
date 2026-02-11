@@ -127,6 +127,7 @@ const NoteScreen = () => {
         )}
       </View>
       <TouchableOpacity
+        testID='notes-add-button'
         style={
           isLandscape ? buttonStyles.landscapeAddButton : buttonStyles.addButton
         }
