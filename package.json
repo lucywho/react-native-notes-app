@@ -11,10 +11,10 @@
     "lint": "expo lint",
     "test": "jest",
     "test:watch": "jest --watch",
-    "e2e:web": "maestro test -p web .maestro/login.yml",
-    "e2e:ios": "maestro test .maestro/login-ios.yml",
-    "crud:web": "maestro test -p web .maestro/notes_crud.yml",
-    "crud:ios": "maestro test .maestro/notes_crud-ios.yml"
+    "login:web": "maestro test -p web .maestro/login.yml",
+    "login:ios": "maestro test .maestro/login-ios.yml",
+    "e2e:web": "maestro test -p web .maestro/e2e.yml",
+    "e2e:ios": "maestro test .maestro/e2e-ios.yml"
   },
   "jest": {
     "preset": "jest-expo",

@@ -64,7 +64,7 @@ const NoteScreen = () => {
     if (response.error) {
       Alert.alert('Error: ', response.error);
     } else {
-      setNotes([...notes, response.data]);
+      setNotes([response.data, ...notes]);
     }
 
     setNewNote('');
