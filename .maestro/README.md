@@ -7,7 +7,8 @@
 ### Login flow only
 
 2. Terminal 2: `npm run login:ios` (runs `maestro test .maestro/login-ios.yml`)
-3. Expo Go launches in simulator. Select app from "Recently opened". openLink with exp:// is unreliable on iOS simulator.
+3. Expo Go launches in simulator.
+4. Select app from "Recently opened". (openLink with exp:// is unreliable on iOS simulator. There is a pause in the flow to allow time to do this.)
 
 ### E2E including Notes CRUD:
 
