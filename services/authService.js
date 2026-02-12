@@ -8,8 +8,16 @@ const authService = {
       return response;
     } catch (error) {
       return {
-        error: error.message || 'Registration failed. Please try agian',
+        error: error.message || 'Registration failed. Please try again.',
       };
+    }
+  },
+  async createEmailVerification(redirectUrl) {
+    try {
+      await account.createEmailVerification({ url: redirectUrl });
+      return { success: true };
+    } catch (error) {
+      return { error: error.message || 'Failed to send verification email.' };
     }
   },
   async login(email, password) {

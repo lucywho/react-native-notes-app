@@ -16,7 +16,12 @@ import { useAuth } from '@/contexts/AuthContext';
 
 const NoteScreen = () => {
   const router = useRouter();
-  const { user, loading: authLoading } = useAuth();
+  const {
+    user,
+    loading: authLoading,
+    resendVerification,
+    checkUser,
+  } = useAuth();
   const { width, height } = useWindowDimensions();
   const isLandscape = width > height;
 
@@ -25,6 +30,9 @@ const NoteScreen = () => {
   const [newNote, setNewNote] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
+  const [resending, setResending] = useState(false);
+
+  const isUnverified = user && user.emailVerification === false;
 
   useEffect(() => {
     if (!authLoading && !user) {
@@ -33,10 +41,25 @@ const NoteScreen = () => {
   }, [user, authLoading]);
 
   useEffect(() => {
-    if (user) {
+    if (user && user.emailVerification !== false) {
       fetchNotes();
     }
   }, [user]);
+
+  const handleResendVerification = async () => {
+    setResending(true);
+    const response = await resendVerification();
+    setResending(false);
+    if (response?.error) {
+      Alert.alert('Error', response.error);
+    } else {
+      Alert.alert('Success', 'Verification email sent. Check your inbox.');
+    }
+  };
+
+  const handleRefreshAfterVerify = () => {
+    checkUser();
+  };
 
   const fetchNotes = async () => {
     setLoading(true);
@@ -110,6 +133,41 @@ const NoteScreen = () => {
     ]);
   };
 
+  if (isUnverified) {
+    return (
+      <View
+        style={[styles.container, { justifyContent: 'center', padding: 24 }]}
+      >
+        <Text
+          style={[styles.errorText, { textAlign: 'center', marginBottom: 16 }]}
+        >
+          Please verify your email to access your notes.
+        </Text>
+        <Text
+          style={[styles.subTitle, { textAlign: 'center', marginBottom: 24 }]}
+        >
+          Check your inbox for the verification link we sent you.
+        </Text>
+        <TouchableOpacity
+          testID='notes-resend-verification'
+          style={[buttonStyles.button, { backgroundColor: 'rebeccapurple' }]}
+          onPress={handleResendVerification}
+          disabled={resending}
+        >
+          <Text style={buttonStyles.buttonText}>
+            {resending ? 'Sending...' : 'Resend verification email'}
+          </Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={[styles.subTitle, { marginTop: 16 }]}
+          onPress={handleRefreshAfterVerify}
+        >
+          <Text style={styles.linkText}>I've verified my email</Text>
+        </TouchableOpacity>
+      </View>
+    );
+  }
+
   return (
     <View style={isLandscape ? styles.landscapeContainer : styles.container}>
       <View style={{ flex: 1 }}>
@@ -119,7 +177,12 @@ const NoteScreen = () => {
           <>
             {error && <Text style={styles.errorText}>{error}</Text>}
             {notes.length === 0 ? (
-              <Text style={styles.errorText}>No notes found</Text>
+              <>
+                <Text style={styles.errorText}>No notes found</Text>
+                <Text style={styles.successText}>
+                  Click the + button to start adding your own notes
+                </Text>
+              </>
             ) : (
               <NoteList notes={notes} onDelete={deleteNote} onEdit={editNote} />
             )}

@@ -21,6 +21,13 @@ switch (Platform.OS) {
   case 'android':
     client.setPlatform(config.androidPackageName);
     break;
+  case 'web':
+    if (typeof window !== 'undefined' && window.location?.origin) {
+      client.setPlatform(window.location.origin);
+    }
+    break;
+  default:
+    break;
 }
 
 const database = new Databases(client);

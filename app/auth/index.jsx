@@ -12,9 +12,11 @@ const AuthScreen = () => {
   const [confirmPassword, setConfirmPassword] = useState('');
   const [isRegistering, setIsRegistering] = useState(false);
   const [error, setError] = useState(false);
+  const [verificationSent, setVerificationSent] = useState(false);
 
   const handleAuth = async () => {
     setError(false);
+    setVerificationSent(false);
 
     if (!email.trim() || !password.trim()) {
       setError('Please enter your email and password');
@@ -37,8 +39,17 @@ const AuthScreen = () => {
     if (response?.error) {
       Alert.alert('Error: ', response.error);
       setError(response.error);
-      console.log(response.error);
       return;
+    }
+
+    if (response?.needsVerification) {
+      setVerificationSent(true);
+      setIsRegistering(false);
+      return;
+    }
+
+    if (response?.verificationError) {
+      Alert.alert('Verification email could not be sent', response.verificationError);
     }
 
     router.replace('/notes');
@@ -49,6 +60,11 @@ const AuthScreen = () => {
       <Text testID='auth-title' style={styles.title}>
         {isRegistering ? 'Sign Up' : 'Login'}
       </Text>
+      {verificationSent ? (
+        <Text testID='auth-verification-sent' style={[styles.subTitle, { marginBottom: 16, color: 'green' }]}>
+          Check your email to verify your account. Once verified, log in below.
+        </Text>
+      ) : null}
       {error ? (
         <Text testID='auth-error' style={styles.errorText}>
           {error}

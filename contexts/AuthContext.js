@@ -38,7 +38,26 @@ export const AuthProvider = ({ children }) => {
     if (response?.error) {
       return response;
     }
-    return login(email, password);
+    const loginResponse = await login(email, password);
+    if (loginResponse?.error) {
+      return loginResponse;
+    }
+    const verifyUrl = process.env.EXPO_PUBLIC_VERIFY_URL;
+    if (verifyUrl) {
+      const verifyResponse = await authService.createEmailVerification(verifyUrl);
+      if (verifyResponse?.error) {
+        return { ...loginResponse, verificationError: verifyResponse.error };
+      }
+    }
+    return { success: true, needsVerification: !!verifyUrl };
+  };
+
+  const resendVerification = async () => {
+    const verifyUrl = process.env.EXPO_PUBLIC_VERIFY_URL;
+    if (!verifyUrl) {
+      return { error: 'Verification URL not configured.' };
+    }
+    return authService.createEmailVerification(verifyUrl);
   };
 
   const logout = async () => {
@@ -48,7 +67,9 @@ export const AuthProvider = ({ children }) => {
   };
 
   return (
-    <AuthContext.Provider value={{ user, loading, login, register, logout }}>
+    <AuthContext.Provider
+      value={{ user, loading, login, register, logout, resendVerification, checkUser }}
+    >
       {children}
     </AuthContext.Provider>
   );

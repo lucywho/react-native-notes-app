@@ -19,6 +19,8 @@ export class Account {
   constructor() {
     this.create = jest.fn().mockResolvedValue({ $id: 'user-1', email: 'test@test.com' });
     this.createEmailPasswordSession = jest.fn().mockResolvedValue({ userId: 'user-1' });
+    this.createEmailVerification = jest.fn().mockResolvedValue({});
+    this.updateVerification = jest.fn().mockResolvedValue({});
     this.get = jest.fn().mockResolvedValue({ $id: 'user-1', email: 'test@test.com' });
     this.deleteSessions = jest.fn().mockResolvedValue(undefined);
   }

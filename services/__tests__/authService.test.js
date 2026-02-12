@@ -117,4 +117,32 @@ describe('authService', () => {
       expect(result.error).toContain('Network error');
     });
   });
+
+  describe('createEmailVerification', () => {
+    it('sends verification email successfully', async () => {
+      account.createEmailVerification.mockResolvedValue(undefined);
+
+      const result = await authService.createEmailVerification(
+        'https://example.com/verify',
+      );
+
+      expect(result).toEqual({ success: true });
+      expect(account.createEmailVerification).toHaveBeenCalledWith({
+        url: 'https://example.com/verify',
+      });
+    });
+
+    it('returns error on failure', async () => {
+      account.createEmailVerification.mockRejectedValue(
+        new Error('Rate limit exceeded'),
+      );
+
+      const result = await authService.createEmailVerification(
+        'https://example.com/verify',
+      );
+
+      expect(result).toHaveProperty('error');
+      expect(result.error).toContain('Rate limit exceeded');
+    });
+  });
 });

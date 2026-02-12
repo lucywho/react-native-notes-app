@@ -60,6 +60,9 @@ export const styles = StyleSheet.create({
     textAlign: 'center',
     marginBottom: 10,
   },
+  successText: {
+    color: 'green',
+  },
   noteActions: {
     flexDirection: 'row',
     alignItems: 'center',
