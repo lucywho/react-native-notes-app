@@ -1,16 +1,17 @@
-import { StyleSheet } from 'react-native';
+import { StyleSheet, Platform } from 'react-native';
+import { COLOURS } from './colours';
 
 export const layoutStyles = StyleSheet.create({
   screenStyles: {
     headerStyle: {
-      backgroundColor: 'rebeccapurple',
+      backgroundColor: COLOURS.secondaryBackground,
     },
-    headerTintColor: 'antiquewhite',
+    headerTintColor: COLOURS.primaryBackground,
     headerTitleStyle: {
       fontWeight: 'bold',
     },
     contentStyle: {
-      backgroundColor: 'antiquewhite',
+      backgroundColor: COLOURS.primaryBackground,
     },
     headerTitleAlign: 'center',
     headerBackTitle: 'Back',
@@ -22,12 +23,15 @@ export const layoutStyles = StyleSheet.create({
     marginRight: 10,
     paddingVertical: 5,
     paddingHorizontal: 10,
-    borderRadius: 5,
-    backgroundColor: 'antiquewhite',
+    borderRadius: 10,
+    backgroundColor: COLOURS.primaryBackground,
+    ...(Platform.OS === 'ios' && {
+      overflow: 'hidden',
+    }),
   },
   logoutButtonText: {
     fontSize: 16,
-    color: 'rebeccapurple',
+    color: COLOURS.secondaryBackground,
     fontWeight: 'bold',
   },
 });

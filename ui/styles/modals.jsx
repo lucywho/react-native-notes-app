@@ -1,21 +1,22 @@
 import { StyleSheet } from 'react-native';
+import { COLOURS } from './colours';
 
 export const modalStyles = StyleSheet.create({
   overlay: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: 'rgba(0, 128, 0, 0.3)',
+    backgroundColor: COLOURS.modalOverlay,
   },
   content: {
-    backgroundColor: 'white',
+    backgroundColor: COLOURS.modalContentBackground,
     padding: 20,
     borderRadius: 10,
     width: '80%',
     maxHeight: '80%',
   },
   landscapeContent: {
-    backgroundColor: 'white',
+    backgroundColor: COLOURS.modalContentBackground,
     padding: 20,
     borderRadius: 10,
     flexDirection: 'row',
@@ -27,11 +28,11 @@ export const modalStyles = StyleSheet.create({
     fontSize: 24,
     fontWeight: 'bold',
     marginBottom: 10,
-    color: 'green',
+    color: COLOURS.modalTitle,
   },
   input: {
     borderWidth: 1,
-    borderColor: 'green',
+    borderColor: COLOURS.modalInputBorder,
     borderRadius: 5,
     padding: 10,
   },

@@ -1,13 +1,14 @@
 import { StyleSheet } from 'react-native';
+import { COLOURS } from './colours';
 
 export const buttonStyles = StyleSheet.create({
   button: {
-    backgroundColor: 'rebeccapurple',
+    backgroundColor: COLOURS.primaryButtonBackground,
     padding: 10,
     borderRadius: 5,
   },
   buttonText: {
-    color: 'antiquewhite',
+    color: COLOURS.buttonText,
     fontSize: 16,
     fontWeight: 'bold',
   },
@@ -16,20 +17,20 @@ export const buttonStyles = StyleSheet.create({
     bottom: 20,
     right: 20,
     left: 20,
-    backgroundColor: 'green',
+    backgroundColor: COLOURS.secondaryButtonBackground,
     padding: 15,
     borderRadius: 8,
     alignItems: 'center',
   },
   addButtonText: {
-    color: 'antiquewhite',
+    color: COLOURS.buttonText,
     fontSize: 16,
     fontWeight: 'bold',
   },
   landscapeAddButton: {
     position: 'relative',
     height: 50,
-    backgroundColor: 'green',
+    backgroundColor: COLOURS.secondaryButtonBackground,
     borderRadius: 8,
     alignItems: 'center',
     justifyContent: 'center',
@@ -37,7 +38,7 @@ export const buttonStyles = StyleSheet.create({
     marginLeft: 10,
   },
   cancelButton: {
-    backgroundColor: '#ba1745',
+    backgroundColor: COLOURS.cancelText,
     padding: 10,
     borderRadius: 5,
     flex: 1,
@@ -45,12 +46,12 @@ export const buttonStyles = StyleSheet.create({
     justifyContent: 'center',
   },
   cancelButtonText: {
-    color: 'antiquewhite',
+    color: COLOURS.buttonText,
     fontSize: 16,
     fontWeight: 'bold',
   },
   saveButton: {
-    backgroundColor: 'green',
+    backgroundColor: COLOURS.secondaryButtonBackground,
     padding: 10,
     borderRadius: 5,
     flex: 1,
@@ -58,7 +59,7 @@ export const buttonStyles = StyleSheet.create({
     justifyContent: 'center',
   },
   saveButtonText: {
-    color: 'antiquewhite',
+    color: COLOURS.buttonText,
     fontSize: 16,
     fontWeight: 'bold',
   },

@@ -1,4 +1,5 @@
 import { StyleSheet } from 'react-native';
+import { COLOURS } from './colours';
 
 export const styles = StyleSheet.create({
   container: {
@@ -6,7 +7,7 @@ export const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     padding: 20,
-    backgroundColor: 'antiquewhite',
+    backgroundColor: COLOURS.primaryBackground,
   },
   landscapeContainer: {
     flex: 1,
@@ -26,27 +27,27 @@ export const styles = StyleSheet.create({
     fontSize: 24,
     fontWeight: 'bold',
     marginBottom: 10,
-    color: 'rebeccapurple',
+    color: COLOURS.primaryText,
   },
   subTitle: {
     fontSize: 16,
     textAlign: 'center',
-    color: '#8040bf',
+    color: COLOURS.secondaryText,
     marginBottom: 20,
   },
   linkText: {
-    color: 'green',
+    color: COLOURS.linkText,
     textDecorationLine: 'underline',
   },
   noteItem: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     width: '100%',
-    backgroundColor: 'rgba(128, 64, 191, 0.1)',
+    backgroundColor: COLOURS.noteItemBackground,
     borderRadius: 5,
     padding: 10,
     borderBottomWidth: 1,
-    borderBottomColor: '#8040bf',
+    borderBottomColor: COLOURS.inputBorder,
     marginVertical: 5,
   },
   noteText: {
@@ -55,13 +56,13 @@ export const styles = StyleSheet.create({
     marginRight: 10,
   },
   errorText: {
-    color: '#ba1745',
+    color: COLOURS.errorText,
     fontSize: 16,
     textAlign: 'center',
     marginBottom: 10,
   },
   successText: {
-    color: 'green',
+    color: COLOURS.successText,
   },
   noteActions: {
     flexDirection: 'row',
@@ -70,13 +71,13 @@ export const styles = StyleSheet.create({
     width: 70,
   },
   deleteNoteText: {
-    color: '#ba1745',
+    color: COLOURS.errorText,
     fontSize: 18,
     fontWeight: 'bold',
     marginLeft: 10,
   },
   editNoteText: {
-    color: '#007380',
+    color: COLOURS.editNoteText,
     fontSize: 18,
     fontWeight: 'bold',
     marginLeft: 10,
@@ -88,13 +89,13 @@ export const styles = StyleSheet.create({
     paddingVertical: 4,
     paddingHorizontal: 6,
     borderWidth: 1,
-    borderColor: '#8040bf',
+    borderColor: COLOURS.inputBorder,
     borderRadius: 4,
   },
   authInputField: {
     marginBottom: 10,
     borderWidth: 1,
-    borderColor: '#8040bf',
+    borderColor: COLOURS.inputBorder,
     borderRadius: 4,
     paddingVertical: 4,
     paddingHorizontal: 6,
