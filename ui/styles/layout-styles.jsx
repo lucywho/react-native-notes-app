@@ -1,9 +1,9 @@
 import { StyleSheet, Platform } from 'react-native';
 import { COLOURS } from './colours';
 
-// iOS 20+ uses system default in header buttons; iOS < 20 needs contrast background
+// iOS 20+ uses system default in header buttons; iOS < 20 and android need contrast background
 const IOS_VERSION = Platform.OS === 'ios' ? parseInt(Platform.Version, 10) : 0;
-const ios20Plus = Platform.OS === 'ios' && IOS_VERSION < 20;
+const headerButtonBackground = (Platform.OS === 'ios' && IOS_VERSION < 20) || Platform.OS === 'android';
 
 export const layoutStyles = StyleSheet.create({
   screenStyles: {
@@ -26,11 +26,10 @@ export const layoutStyles = StyleSheet.create({
   logoutButton: {
     marginRight: 10,
     paddingVertical: 5,
-    paddingRight: ios20Plus ? 10 : 0,
+    paddingRight: headerButtonBackground ? 10 : 0,
     paddingLeft: 10,
     borderRadius: 20,
-    backgroundColor: ios20Plus ? COLOURS.primaryBackground : 'transparent',
-    ...(Platform.OS === 'ios'),
+    backgroundColor: headerButtonBackground ? COLOURS.primaryBackground : 'transparent',
   },
   logoutButtonText: {
     fontSize: 16,

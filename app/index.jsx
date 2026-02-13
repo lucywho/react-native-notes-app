@@ -1,5 +1,5 @@
-import { useRouter } from 'expo-router';
 import { useEffect } from 'react';
+import { useRouter } from 'expo-router';
 import { useAuth } from '@/contexts/AuthContext';
 import { buttonStyles, styles } from '@/ui/styles';
 import PostItImage from '@/assets/images/post-it.png';
