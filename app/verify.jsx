@@ -1,8 +1,8 @@
+import { styles } from '@/ui/styles';
 import { useEffect, useState } from 'react';
 import { account } from '@/services/appwrite';
 import { useLocalSearchParams } from 'expo-router';
-import { styles } from '@/ui/styles';
-import { View, Text, ActivityIndicator, StyleSheet } from 'react-native';
+import { View, Text, ActivityIndicator } from 'react-native';
 
 const VerifyScreen = () => {
   const { userId, secret } = useLocalSearchParams();

@@ -13,11 +13,7 @@ const HeaderLogout = () => {
   };
 
   return (
-    <TouchableOpacity
-      style={layoutStyles.logoutButton}
-      onPress={handleLogout}
-      activeOpacity={1}
-    >
+    <TouchableOpacity style={layoutStyles.logoutButton} onPress={handleLogout}>
       <Text style={layoutStyles.logoutButtonText}>Logout</Text>
     </TouchableOpacity>
   );
