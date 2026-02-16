@@ -1,8 +1,9 @@
 import { useEffect } from 'react';
 import { useRouter } from 'expo-router';
 import { useAuth } from '@/contexts/AuthContext';
-import { buttonStyles, styles } from '@/ui/styles';
+import { useTheme } from '@/contexts/ThemeContext';
 import PostItImage from '@/assets/images/post-it.png';
+import { useButtonStyles, useStyles } from '@/ui/styles';
 import {
   Image,
   Text,
@@ -15,6 +16,9 @@ import AppwriteConnectionTest from '@/components/AppwriteConnectionTest';
 const HomeScreen = () => {
   const { user, loading } = useAuth();
   const router = useRouter();
+  const styles = useStyles();
+  const buttonStyles = useButtonStyles();
+  const { theme } = useTheme();
 
   useEffect(() => {
     if (!loading && user) {
@@ -25,10 +29,7 @@ const HomeScreen = () => {
   if (loading) {
     return (
       <View style={styles.container}>
-        <ActivityIndicator
-          size='large'
-          color={styles.activityIndicatorColour}
-        />
+        <ActivityIndicator size='large' color={theme.activityIndicator} />
       </View>
     );
   }

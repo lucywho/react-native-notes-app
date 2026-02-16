@@ -1,6 +1,4 @@
-import { styles } from './styles';
-import { modalStyles } from './modals';
-import { buttonStyles } from './buttons';
-import { layoutStyles } from './layout-styles';
-
-export { buttonStyles, layoutStyles, modalStyles, styles };
+export { useStyles, styles } from './styles';
+export { useLayoutStyles, layoutStyles } from './layout-styles';
+export { useButtonStyles, buttonStyles } from './buttons';
+export { useModalStyles, modalStyles } from './modals';

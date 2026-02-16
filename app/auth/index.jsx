@@ -1,12 +1,16 @@
 import { useState } from 'react';
 import { useRouter } from 'expo-router';
 import { useAuth } from '@/contexts/AuthContext';
-import { styles, buttonStyles } from '@/ui/styles';
+import { useTheme } from '@/contexts/ThemeContext';
+import { useButtonStyles, useStyles } from '@/ui/styles';
 import { View, Text, TextInput, TouchableOpacity, Alert } from 'react-native';
 
 const AuthScreen = () => {
   const router = useRouter();
   const { login, register } = useAuth();
+  const styles = useStyles();
+  const buttonStyles = useButtonStyles();
+  const { theme } = useTheme();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
@@ -68,7 +72,7 @@ const AuthScreen = () => {
           testID='auth-verification-sent'
           style={[
             styles.subTitle,
-            { marginBottom: 16, color: styles.successText },
+            { marginBottom: 16, color: theme.successText },
           ]}
         >
           Check your email to verify your account. Once verified, log in below.
@@ -91,7 +95,7 @@ const AuthScreen = () => {
         autoCorrect={false}
         keyboardType='email-address'
         placeholder='Enter your email...'
-        placeholderTextColor={styles.placeholderText}
+        placeholderTextColor={theme.placeholderText}
       />
       <TextInput
         testID='auth-password-input'
@@ -103,7 +107,7 @@ const AuthScreen = () => {
         autoCorrect={false}
         keyboardType='default'
         placeholder='Enter your password...'
-        placeholderTextColor={styles.placeholderText}
+        placeholderTextColor={theme.placeholderText}
         secureTextEntry
         textContentType='password'
       />
@@ -116,7 +120,7 @@ const AuthScreen = () => {
           autoCorrect={false}
           keyboardType='default'
           placeholder='Confirm your password...'
-          placeholderTextColor={styles.placeholderText}
+          placeholderTextColor={theme.placeholderText}
           secureTextEntry
           textContentType='password'
         />
@@ -126,7 +130,7 @@ const AuthScreen = () => {
         testID='auth-submit-button'
         style={[
           buttonStyles.button,
-          { backgroundColor: styles.secondaryButtonBackground, marginTop: 20 },
+          { backgroundColor: theme.secondaryButtonBackground, marginTop: 20 },
         ]}
         onPress={handleAuth}
       >

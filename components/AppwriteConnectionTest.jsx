@@ -1,8 +1,9 @@
 import { useState } from 'react';
+import { useButtonStyles } from '@/ui/styles';
 import { Alert, Text, TouchableOpacity } from 'react-native';
-import { buttonStyles } from '@/ui/styles';
 
 const AppwriteConnectionTest = () => {
+  const buttonStyles = useButtonStyles();
   const [isTesting, setIsTesting] = useState(false);
 
   const testConnection = async () => {

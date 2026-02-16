@@ -1,11 +1,14 @@
-import { styles } from '@/ui/styles';
+import { useStyles } from '@/ui/styles';
 import { useEffect, useState } from 'react';
 import { account } from '@/services/appwrite';
+import { useTheme } from '@/contexts/ThemeContext';
 import { useLocalSearchParams } from 'expo-router';
 import { View, Text, ActivityIndicator } from 'react-native';
 
 const VerifyScreen = () => {
   const { userId, secret } = useLocalSearchParams();
+  const styles = useStyles();
+  const { theme } = useTheme();
   const [status, setStatus] = useState('verifying'); // 'verifying' | 'success' | 'error'
   const [message, setMessage] = useState('');
 
@@ -37,11 +40,8 @@ const VerifyScreen = () => {
   if (status === 'verifying') {
     return (
       <View style={styles.container}>
-        <ActivityIndicator
-          size='large'
-          color={styles.activityIndicatorColour}
-        />
-        <Text style={styles.subTitle}>Verifying your email...</Text>
+        <ActivityIndicator size='large' color={theme.activityIndicator} />
+        <Text style={styles.text}>Verifying your email...</Text>
       </View>
     );
   }

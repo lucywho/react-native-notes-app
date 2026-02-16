@@ -1,8 +1,9 @@
-import { styles } from '@/ui/styles';
+import { useStyles } from '@/ui/styles';
 import { useState, useRef } from 'react';
 import { Text, TouchableOpacity, View, TextInput } from 'react-native';
 
 const NoteItem = ({ note, onDelete, onEdit }) => {
+  const styles = useStyles();
   const [isEditing, setIsEditing] = useState(false);
   const [editedText, setEditedText] = useState(note.text);
   const inputRef = useRef(null);

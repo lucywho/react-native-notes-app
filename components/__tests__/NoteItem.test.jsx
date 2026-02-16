@@ -1,6 +1,6 @@
 import React from 'react';
-import { render, screen, fireEvent } from '@testing-library/react-native';
 import NoteItem from '../NoteItem';
+import { render, screen, fireEvent } from '@/test-utils';
 
 describe('NoteItem', () => {
   const mockNote = { $id: 'note-1', text: 'Test note content' };

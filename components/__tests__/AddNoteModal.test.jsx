@@ -1,6 +1,6 @@
 import React from 'react';
-import { render, screen, fireEvent } from '@testing-library/react-native';
 import AddNoteModal from '../AddNoteModal';
+import { render, screen, fireEvent } from '@/test-utils';
 
 describe('AddNoteModal', () => {
   const mockSetModalVisible = jest.fn();
@@ -37,7 +37,10 @@ describe('AddNoteModal', () => {
       />,
     );
 
-    expect(screen.getByTestId('add-note-input')).toHaveProp('value', 'Draft note');
+    expect(screen.getByTestId('add-note-input')).toHaveProp(
+      'value',
+      'Draft note',
+    );
   });
 
   it('calls setNewNote when typing in input', () => {
@@ -88,5 +91,4 @@ describe('AddNoteModal', () => {
 
     expect(mockAddNote).toHaveBeenCalled();
   });
-
 });

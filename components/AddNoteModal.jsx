@@ -1,4 +1,5 @@
-import { styles, buttonStyles, modalStyles } from '@/ui/styles';
+import { useTheme } from '@/contexts/ThemeContext';
+import { useButtonStyles, useModalStyles } from '@/ui/styles';
 import {
   Modal,
   Text,
@@ -17,6 +18,9 @@ const AddNoteModal = ({
 }) => {
   const { width, height } = useWindowDimensions();
   const isLandscape = width > height;
+  const buttonStyles = useButtonStyles();
+  const modalStyles = useModalStyles();
+  const { theme } = useTheme();
 
   return (
     <Modal
@@ -46,7 +50,7 @@ const AddNoteModal = ({
               value={newNote}
               onChangeText={setNewNote}
               placeholder='Enter your note...'
-              placeholderTextColor={styles.modalPlaceholderText}
+              placeholderTextColor={theme.modalPlaceholderText}
               multiline={isLandscape}
             />
           </View>

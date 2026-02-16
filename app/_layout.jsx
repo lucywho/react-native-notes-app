@@ -1,11 +1,16 @@
-import { layoutStyles } from '@/ui/styles';
+import { useEffect } from 'react';
+import { StatusBar } from 'expo-status-bar';
+import * as SystemUI from 'expo-system-ui';
+import { useLayoutStyles } from '@/ui/styles';
 import { Stack, useRouter } from 'expo-router';
-import { TouchableOpacity, Text } from 'react-native';
 import { AuthProvider, useAuth } from '@/contexts/AuthContext';
+import { ThemeProvider, useTheme } from '@/contexts/ThemeContext';
+import { TouchableOpacity, Text, useWindowDimensions } from 'react-native';
 
 const HeaderLogout = () => {
   const { logout } = useAuth();
   const router = useRouter();
+  const layoutStyles = useLayoutStyles();
 
   const handleLogout = async () => {
     await logout();
@@ -21,6 +26,7 @@ const HeaderLogout = () => {
 
 const StackWithHeader = () => {
   const { user } = useAuth();
+  const layoutStyles = useLayoutStyles();
 
   return (
     <Stack
@@ -40,11 +46,29 @@ const StackWithHeader = () => {
   );
 };
 
+const ThemeAwareContent = () => {
+  const { colorScheme, theme } = useTheme();
+  const { width, height } = useWindowDimensions();
+
+  useEffect(() => {
+    SystemUI.setBackgroundColorAsync(theme.primaryBackground);
+  }, [theme.primaryBackground, width, height]);
+
+  return (
+    <>
+      <StatusBar style={colorScheme === 'dark' ? 'light' : 'dark'} />
+      <AuthProvider>
+        <StackWithHeader />
+      </AuthProvider>
+    </>
+  );
+};
+
 const RootLayout = () => {
   return (
-    <AuthProvider>
-      <StackWithHeader />
-    </AuthProvider>
+    <ThemeProvider>
+      <ThemeAwareContent />
+    </ThemeProvider>
   );
 };
 

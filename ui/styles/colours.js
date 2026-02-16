@@ -1,23 +1,5 @@
-export const COLOURS = {
-  primaryBackground: 'antiquewhite',
-  secondaryBackground: 'rebeccapurple',
-  primaryText: 'rebeccapurple',
-  secondaryText: '#8040bf',
-  linkText: 'green',
-  warningText: '#ba1745',
-  successText: 'green',
-  errorText: '#ba1745',
-  cancelText: '#ba1745',
-  placeholderText: '#8040bf',
-  primaryButtonBackground: 'rebeccapurple',
-  secondaryButtonBackground: 'green',
-  buttonText: 'antiquewhite',
-  inputBorder: '#8040bf',
-  noteItemBackground: 'rgba(128, 64, 191, 0.1)',
-  editNoteText: '#007380',
-  modalOverlay: 'rgba(0, 128, 0, 0.3)',
-  modalContentBackground: 'white',
-  modalInputBorder: 'green',
-  modalTitle: 'green',
-  modalPlaceholderText: '#99CC99',
-};
+/**
+ * @deprecated Import from theme.js and use getThemeForScheme() or ThemeContext for theme-aware colours.
+ * This export exists for backward compatibility until the style system is refactored in Phase 4.
+ */
+export { LIGHT_THEME as COLOURS } from './theme';

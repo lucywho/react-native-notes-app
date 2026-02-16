@@ -1,8 +1,11 @@
 import { useRouter } from 'expo-router';
 import { useState, useEffect } from 'react';
 import NoteList from '@/components/NoteList';
-import { buttonStyles, styles } from '@/ui/styles';
+import noteService from '@/services/noteService';
+import { useAuth } from '@/contexts/AuthContext';
+import { useTheme } from '@/contexts/ThemeContext';
 import AddNoteModal from '@/components/AddNoteModal';
+import { useButtonStyles, useStyles } from '@/ui/styles';
 import {
   Text,
   TouchableOpacity,
@@ -11,8 +14,6 @@ import {
   ActivityIndicator,
   useWindowDimensions,
 } from 'react-native';
-import noteService from '@/services/noteService';
-import { useAuth } from '@/contexts/AuthContext';
 
 const NoteScreen = () => {
   const router = useRouter();
@@ -24,6 +25,9 @@ const NoteScreen = () => {
   } = useAuth();
   const { width, height } = useWindowDimensions();
   const isLandscape = width > height;
+  const styles = useStyles();
+  const buttonStyles = useButtonStyles();
+  const { theme } = useTheme();
 
   const [notes, setNotes] = useState([]);
   const [modalVisible, setModalVisible] = useState(false);
@@ -152,7 +156,7 @@ const NoteScreen = () => {
           testID='notes-resend-verification'
           style={[
             buttonStyles.button,
-            { backgroundColor: styles.primaryButtonBackground },
+            { backgroundColor: theme.primaryButtonBackground },
           ]}
           onPress={handleResendVerification}
           disabled={resending}
@@ -175,10 +179,7 @@ const NoteScreen = () => {
     <View style={isLandscape ? styles.landscapeContainer : styles.container}>
       <View style={{ flex: 1 }}>
         {loading ? (
-          <ActivityIndicator
-            size='large'
-            color={styles.ActivityIndicatorColour}
-          />
+          <ActivityIndicator size='large' color={theme.activityIndicator} />
         ) : (
           <>
             {error && <Text style={styles.errorText}>{error}</Text>}
