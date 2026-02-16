@@ -11,7 +11,6 @@ import {
   View,
   ActivityIndicator,
 } from 'react-native';
-import AppwriteConnectionTest from '@/components/AppwriteConnectionTest';
 
 const HomeScreen = () => {
   const { user, loading } = useAuth();
@@ -49,7 +48,6 @@ const HomeScreen = () => {
       >
         <Text style={buttonStyles.buttonText}>Get Started</Text>
       </TouchableOpacity>
-      <AppwriteConnectionTest />
     </View>
   );
 };
