@@ -150,7 +150,10 @@ const NoteScreen = () => {
         </Text>
         <TouchableOpacity
           testID='notes-resend-verification'
-          style={[buttonStyles.button, { backgroundColor: 'rebeccapurple' }]}
+          style={[
+            buttonStyles.button,
+            { backgroundColor: styles.primaryButtonBackground },
+          ]}
           onPress={handleResendVerification}
           disabled={resending}
         >
@@ -172,7 +175,10 @@ const NoteScreen = () => {
     <View style={isLandscape ? styles.landscapeContainer : styles.container}>
       <View style={{ flex: 1 }}>
         {loading ? (
-          <ActivityIndicator size='large' color='rebeccapurple' />
+          <ActivityIndicator
+            size='large'
+            color={styles.ActivityIndicatorColour}
+          />
         ) : (
           <>
             {error && <Text style={styles.errorText}>{error}</Text>}

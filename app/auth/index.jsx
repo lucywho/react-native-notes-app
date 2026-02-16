@@ -49,7 +49,10 @@ const AuthScreen = () => {
     }
 
     if (response?.verificationError) {
-      Alert.alert('Verification email could not be sent', response.verificationError);
+      Alert.alert(
+        'Verification email could not be sent',
+        response.verificationError,
+      );
     }
 
     router.replace('/notes');
@@ -61,7 +64,13 @@ const AuthScreen = () => {
         {isRegistering ? 'Sign Up' : 'Login'}
       </Text>
       {verificationSent ? (
-        <Text testID='auth-verification-sent' style={[styles.subTitle, { marginBottom: 16, color: 'green' }]}>
+        <Text
+          testID='auth-verification-sent'
+          style={[
+            styles.subTitle,
+            { marginBottom: 16, color: styles.successText },
+          ]}
+        >
           Check your email to verify your account. Once verified, log in below.
         </Text>
       ) : null}
@@ -82,7 +91,7 @@ const AuthScreen = () => {
         autoCorrect={false}
         keyboardType='email-address'
         placeholder='Enter your email...'
-        placeholderTextColor='#8040bf'
+        placeholderTextColor={styles.placeholderText}
       />
       <TextInput
         testID='auth-password-input'
@@ -94,7 +103,7 @@ const AuthScreen = () => {
         autoCorrect={false}
         keyboardType='default'
         placeholder='Enter your password...'
-        placeholderTextColor='#8040bf'
+        placeholderTextColor={styles.placeholderText}
         secureTextEntry
         textContentType='password'
       />
@@ -107,7 +116,7 @@ const AuthScreen = () => {
           autoCorrect={false}
           keyboardType='default'
           placeholder='Confirm your password...'
-          placeholderTextColor='#8040bf'
+          placeholderTextColor={styles.placeholderText}
           secureTextEntry
           textContentType='password'
         />
@@ -117,7 +126,7 @@ const AuthScreen = () => {
         testID='auth-submit-button'
         style={[
           buttonStyles.button,
-          { backgroundColor: 'green', marginTop: 20 },
+          { backgroundColor: styles.secondaryButtonBackground, marginTop: 20 },
         ]}
         onPress={handleAuth}
       >

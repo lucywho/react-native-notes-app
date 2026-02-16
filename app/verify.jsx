@@ -37,8 +37,11 @@ const VerifyScreen = () => {
   if (status === 'verifying') {
     return (
       <View style={styles.container}>
-        <ActivityIndicator size='large' color='rebeccapurple' />
-        <Text style={styles.text}>Verifying your email...</Text>
+        <ActivityIndicator
+          size='large'
+          color={styles.activityIndicatorColour}
+        />
+        <Text style={styles.subTitle}>Verifying your email...</Text>
       </View>
     );
   }

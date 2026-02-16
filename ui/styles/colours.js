@@ -8,6 +8,7 @@ export const COLOURS = {
   successText: 'green',
   errorText: '#ba1745',
   cancelText: '#ba1745',
+  placeholderText: '#8040bf',
   primaryButtonBackground: 'rebeccapurple',
   secondaryButtonBackground: 'green',
   buttonText: 'antiquewhite',
@@ -18,4 +19,5 @@ export const COLOURS = {
   modalContentBackground: 'white',
   modalInputBorder: 'green',
   modalTitle: 'green',
+  modalPlaceholderText: '#99CC99',
 };

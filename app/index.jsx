@@ -25,7 +25,10 @@ const HomeScreen = () => {
   if (loading) {
     return (
       <View style={styles.container}>
-        <ActivityIndicator size='large' color='rebeccapurple' />
+        <ActivityIndicator
+          size='large'
+          color={styles.activityIndicatorColour}
+        />
       </View>
     );
   }

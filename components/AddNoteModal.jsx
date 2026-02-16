@@ -1,4 +1,4 @@
-import { buttonStyles, modalStyles } from '@/ui/styles';
+import { styles, buttonStyles, modalStyles } from '@/ui/styles';
 import {
   Modal,
   Text,
@@ -46,7 +46,7 @@ const AddNoteModal = ({
               value={newNote}
               onChangeText={setNewNote}
               placeholder='Enter your note...'
-              placeholderTextColor='#99CC99'
+              placeholderTextColor={styles.modalPlaceholderText}
               multiline={isLandscape}
             />
           </View>

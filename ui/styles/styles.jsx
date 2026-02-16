@@ -23,6 +23,9 @@ export const styles = StyleSheet.create({
     marginBottom: 20,
     borderRadius: 10,
   },
+  activityIndicatorColour: {
+    color: COLOURS.primaryText,
+  },
   title: {
     fontSize: 24,
     fontWeight: 'bold',
