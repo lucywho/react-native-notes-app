@@ -1,54 +1,18 @@
 import { useEffect } from 'react';
-import { StatusBar } from 'expo-status-bar';
+import { Stack } from 'expo-router';
 import * as SystemUI from 'expo-system-ui';
+import { StatusBar } from 'expo-status-bar';
 import { useLayoutStyles } from '@/ui/styles';
-import { Stack, useRouter } from 'expo-router';
+import { useWindowDimensions } from 'react-native';
+import { HeaderLogout } from '@/components/HeaderLogout';
 import { AuthProvider, useAuth } from '@/contexts/AuthContext';
 import { ThemeProvider, useTheme } from '@/contexts/ThemeContext';
-import { TouchableOpacity, Text, useWindowDimensions } from 'react-native';
 
-const HeaderLogout = () => {
-  const { logout } = useAuth();
-  const router = useRouter();
-  const layoutStyles = useLayoutStyles();
-
-  const handleLogout = async () => {
-    await logout();
-    router.replace('/');
-  };
-
-  return (
-    <TouchableOpacity style={layoutStyles.logoutButton} onPress={handleLogout}>
-      <Text style={layoutStyles.logoutButtonText}>Logout</Text>
-    </TouchableOpacity>
-  );
-};
-
-const StackWithHeader = () => {
-  const { user } = useAuth();
-  const layoutStyles = useLayoutStyles();
-
-  return (
-    <Stack
-      screenOptions={{
-        ...layoutStyles.screenStyles,
-        ...(user && { headerRight: () => <HeaderLogout /> }),
-      }}
-    >
-      <Stack.Screen name='index' options={{ title: 'Home' }} />
-      <Stack.Screen name='notes' options={{ headerTitle: 'Notes' }} />
-      <Stack.Screen name='auth' options={{ headerTitle: 'Login' }} />
-      <Stack.Screen
-        name='verify'
-        options={{ headerTitle: 'Verify Email', headerShown: false }}
-      />
-    </Stack>
-  );
-};
-
-const ThemeAwareContent = () => {
+const AppContent = () => {
   const { colorScheme, theme } = useTheme();
   const { width, height } = useWindowDimensions();
+  const { user } = useAuth();
+  const layoutStyles = useLayoutStyles();
 
   useEffect(() => {
     SystemUI.setBackgroundColorAsync(theme.primaryBackground);
@@ -57,9 +21,20 @@ const ThemeAwareContent = () => {
   return (
     <>
       <StatusBar style={colorScheme === 'dark' ? 'light' : 'dark'} />
-      <AuthProvider>
-        <StackWithHeader />
-      </AuthProvider>
+      <Stack
+        screenOptions={{
+          ...layoutStyles.screenStyles,
+          ...(user && { headerRight: () => <HeaderLogout /> }),
+        }}
+      >
+        <Stack.Screen name='index' options={{ title: 'Home' }} />
+        <Stack.Screen name='notes' options={{ headerTitle: 'Notes' }} />
+        <Stack.Screen name='auth' options={{ headerTitle: 'Login' }} />
+        <Stack.Screen
+          name='verify'
+          options={{ headerTitle: 'Verify Email', headerShown: false }}
+        />
+      </Stack>
     </>
   );
 };
@@ -67,7 +42,9 @@ const ThemeAwareContent = () => {
 const RootLayout = () => {
   return (
     <ThemeProvider>
-      <ThemeAwareContent />
+      <AuthProvider>
+        <AppContent />
+      </AuthProvider>
     </ThemeProvider>
   );
 };
