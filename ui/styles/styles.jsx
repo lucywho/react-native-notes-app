@@ -57,6 +57,7 @@ export function getStyles(colors) {
       marginVertical: 5,
     },
     noteText: {
+      color: colors.primaryText,
       fontSize: 16,
       flex: 1,
       marginRight: 10,
