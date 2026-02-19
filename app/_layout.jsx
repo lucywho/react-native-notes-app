@@ -34,6 +34,9 @@ const AppContent = () => {
           name='verify'
           options={{ headerTitle: 'Verify Email', headerShown: false }}
         />
+        {__DEV__ && (
+          <Stack.Screen name='storybook' options={{ headerShown: false }} />
+        )}
       </Stack>
     </>
   );

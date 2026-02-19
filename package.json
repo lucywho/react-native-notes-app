@@ -14,7 +14,8 @@
     "login:web": "maestro test -p web .maestro/login.yml",
     "login:ios": "maestro test .maestro/login-ios.yml",
     "e2e:web": "maestro test -p web .maestro/e2e.yml",
-    "e2e:ios": "maestro test .maestro/e2e-ios.yml"
+    "e2e:ios": "maestro test .maestro/e2e-ios.yml",
+    "storybook-generate": "sb-rn-get-stories"
   },
   "jest": {
     "preset": "jest-expo",
@@ -52,7 +53,18 @@
     "react-native-url-polyfill": "^3.0.0",
     "react-native-web": "~0.21.0",
     "react-native-worklets": "0.5.1",
-    "zod": "^4.3.6"
+    "zod": "^4.3.6",
+    "@babel/core": "^7.29.0",
+    "babel-loader": "^8.4.1",
+    "@react-native-async-storage/async-storage": "^2.2.0",
+    "@react-native-community/datetimepicker": "^8.6.0",
+    "@react-native-community/slider": "^5.1.2",
+    "@gorhom/bottom-sheet": "^5.2.8",
+    "react-native-svg": "^15.15.3",
+    "@storybook/addon-ondevice-controls": "^10.2.3",
+    "@storybook/addon-ondevice-actions": "^10.2.3",
+    "@storybook/react-native": "^10.2.3",
+    "storybook": "^10.2.10"
   },
   "devDependencies": {
     "@testing-library/jest-native": "^5.4.3",

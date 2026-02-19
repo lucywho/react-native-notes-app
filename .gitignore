@@ -46,3 +46,6 @@ app-example
 # local documentation and notes
 /docs
 
+
+*storybook.log
+storybook-static
