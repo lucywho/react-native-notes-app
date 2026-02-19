@@ -48,6 +48,18 @@ const HomeScreen = () => {
       >
         <Text style={buttonStyles.buttonText}>Get Started</Text>
       </TouchableOpacity>
+      {__DEV__ && (
+        <TouchableOpacity
+          testID='home-storybook'
+          style={[
+            buttonStyles.button,
+            { backgroundColor: 'firebrick', opacity: 0.5, marginTop: 20 },
+          ]}
+          onPress={() => router.push('/storybook')}
+        >
+          <Text style={buttonStyles.buttonText}>Storybook</Text>
+        </TouchableOpacity>
+      )}
     </View>
   );
 };
