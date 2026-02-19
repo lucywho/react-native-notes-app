@@ -115,6 +115,17 @@ export function getStyles(colors) {
       color: colors.primaryText,
       backgroundColor: colors.primaryBackground,
     },
+    errorInputField: {
+      marginBottom: 10,
+      borderWidth: 1,
+      borderColor: colors.errorText,
+      borderRadius: 4,
+      paddingVertical: 4,
+      paddingHorizontal: 6,
+      width: '70%',
+      color: colors.primaryText,
+      backgroundColor: `${colors.errorText}10`,
+    },
   });
 }
 
