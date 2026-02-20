@@ -14,7 +14,9 @@ import {
   KeyboardAvoidingView,
   Platform,
   ScrollView,
+  View,
 } from 'react-native';
+import { Ionicons } from '@expo/vector-icons';
 
 const formSchema = z
   .object({
@@ -57,6 +59,7 @@ const AuthScreen = () => {
   });
   const [isRegistering, setIsRegistering] = useState(false);
   const [verificationSent, setVerificationSent] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
 
   const isInitialMount = useRef(true);
 
@@ -172,25 +175,60 @@ const AuthScreen = () => {
           name='password'
           render={({ field: { onChange, onBlur, value } }) => (
             <>
-              <TextInput
-                testID='auth-password-input'
-                nativeID='auth-password-input'
-                accessibilityLabel='Password input'
-                style={
+              <View
+                style={[
                   errors.password
                     ? styles.errorInputField
-                    : styles.authInputField
-                }
-                value={value}
-                onChangeText={onChange}
-                onBlur={onBlur}
-                autoCorrect={false}
-                keyboardType='default'
-                placeholder='Enter your password...'
-                placeholderTextColor={theme.placeholderText}
-                secureTextEntry
-                textContentType='password'
-              />
+                    : styles.authInputField,
+                  {
+                    flexDirection: 'row',
+                    alignItems: 'center',
+                    paddingRight: 0,
+                  },
+                ]}
+              >
+                <TextInput
+                  testID='auth-password-input'
+                  nativeID='auth-password-input'
+                  accessibilityLabel='Password input'
+                  style={[
+                    errors.password
+                      ? styles.errorInputField
+                      : styles.authInputField,
+                    {
+                      flex: 1,
+                      marginBottom: 0,
+                      borderWidth: 0,
+                      paddingRight: 36,
+                      backgroundColor: 'transparent',
+                    },
+                  ]}
+                  value={value}
+                  onChangeText={onChange}
+                  onBlur={onBlur}
+                  autoCorrect={false}
+                  keyboardType='default'
+                  placeholder='Enter your password...'
+                  placeholderTextColor={theme.placeholderText}
+                  secureTextEntry={!showPassword}
+                  textContentType='password'
+                />
+                <TouchableOpacity
+                  testID='auth-password-visibility-toggle'
+                  accessibilityLabel={
+                    showPassword ? 'Hide password' : 'Show password'
+                  }
+                  onPress={() => setShowPassword(!showPassword)}
+                  style={{ padding: 8, position: 'absolute', right: 4 }}
+                  hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}
+                >
+                  <Ionicons
+                    name={showPassword ? 'eye-off-outline' : 'eye-outline'}
+                    size={18}
+                    color={theme.secondaryText}
+                  />
+                </TouchableOpacity>
+              </View>
               {errors.password && (
                 <Text style={styles.errorText}>{errors.password.message}</Text>
               )}
@@ -203,23 +241,58 @@ const AuthScreen = () => {
             name='confirmPassword'
             render={({ field: { onChange, onBlur, value } }) => (
               <>
-                <TextInput
-                  testID='auth-confirm-password-input'
-                  style={
+                <View
+                  style={[
                     errors.confirmPassword
                       ? styles.errorInputField
-                      : styles.authInputField
-                  }
-                  value={value}
-                  onChangeText={onChange}
-                  onBlur={onBlur}
-                  autoCorrect={false}
-                  keyboardType='default'
-                  placeholder='Confirm your password...'
-                  placeholderTextColor={theme.placeholderText}
-                  secureTextEntry
-                  textContentType='password'
-                />
+                      : styles.authInputField,
+                    {
+                      flexDirection: 'row',
+                      alignItems: 'center',
+                      paddingRight: 0,
+                    },
+                  ]}
+                >
+                  <TextInput
+                    testID='auth-confirm-password-input'
+                    style={[
+                      errors.confirmPassword
+                        ? styles.errorInputField
+                        : styles.authInputField,
+                      {
+                        flex: 1,
+                        marginBottom: 0,
+                        borderWidth: 0,
+                        paddingRight: 36,
+                        backgroundColor: 'transparent',
+                      },
+                    ]}
+                    value={value}
+                    onChangeText={onChange}
+                    onBlur={onBlur}
+                    autoCorrect={false}
+                    keyboardType='default'
+                    placeholder='Confirm your password...'
+                    placeholderTextColor={theme.placeholderText}
+                    secureTextEntry={!showPassword}
+                    textContentType='password'
+                  />
+                  <TouchableOpacity
+                    testID='auth-confirm-password-visibility-toggle'
+                    accessibilityLabel={
+                      showPassword ? 'Hide password' : 'Show password'
+                    }
+                    onPress={() => setShowPassword(!showPassword)}
+                    style={{ padding: 8, position: 'absolute', right: 4 }}
+                    hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}
+                  >
+                    <Ionicons
+                      name={showPassword ? 'eye-off-outline' : 'eye-outline'}
+                      size={18}
+                      color={theme.secondaryText}
+                    />
+                  </TouchableOpacity>
+                </View>
                 {errors.confirmPassword && (
                   <Text style={styles.errorText}>
                     {errors.confirmPassword.message}

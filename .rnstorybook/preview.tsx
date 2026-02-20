@@ -3,19 +3,24 @@ import { useRouter } from 'expo-router';
 import { AuthProvider } from '../contexts/AuthContext';
 import { ThemeProvider } from '../contexts/ThemeContext';
 import type { Preview } from '@storybook/react-native';
-import { Appearance, Switch, Text, TouchableOpacity, View } from 'react-native';
+import {
+  Appearance,
+  Switch,
+  Text,
+  TouchableOpacity,
+  useColorScheme,
+  View,
+} from 'react-native';
 
-const ThemeToggleDecorator = (Story) => {
+const ThemeAndHomeDecorator = (Story) => {
   const router = useRouter();
-  const [scheme, setScheme] = React.useState<'light' | 'dark'>(
-    () => (Appearance.getColorScheme() as 'light' | 'dark') ?? 'light',
-  );
+  const colorScheme = useColorScheme();
+  const isDark = colorScheme === 'dark';
 
   const setTheme = (value: 'light' | 'dark') => {
     if (Appearance.setColorScheme) {
       Appearance.setColorScheme(value);
     }
-    setScheme(value);
   };
 
   return (
@@ -26,9 +31,9 @@ const ThemeToggleDecorator = (Story) => {
           padding: 8,
           gap: 8,
           alignItems: 'center',
-          backgroundColor: scheme === 'dark' ? '#333' : '#eee',
+          backgroundColor: '#eee',
           borderBottomWidth: 1,
-          borderBottomColor: scheme === 'dark' ? '#555' : '#ccc',
+          borderBottomColor: '#ccc',
         }}
       >
         <TouchableOpacity
@@ -39,33 +44,17 @@ const ThemeToggleDecorator = (Story) => {
             marginRight: 8,
           }}
         >
-          <Text style={{ color: scheme === 'dark' ? '#0A84FF' : '#007AFF' }}>
-            ← Home
-          </Text>
+          <Text style={{ color: '#007AFF' }}>← Home</Text>
         </TouchableOpacity>
         <View style={{ flexDirection: 'row', alignItems: 'center', gap: 6 }}>
-          <Text
-            style={{
-              color: scheme === 'dark' ? '#fff' : '#007AFF',
-              fontSize: 12,
-            }}
-          >
-            Light
-          </Text>
+          <Text style={{ color: '#333', fontSize: 12 }}>Light</Text>
           <Switch
-            value={scheme === 'dark'}
-            onValueChange={(isDark) => setTheme(isDark ? 'dark' : 'light')}
+            value={isDark}
+            onValueChange={(dark) => setTheme(dark ? 'dark' : 'light')}
             trackColor={{ false: '#ccc', true: '#007AFF' }}
             thumbColor='#fff'
           />
-          <Text
-            style={{
-              color: scheme === 'dark' ? '#fff' : '#007AFF',
-              fontSize: 12,
-            }}
-          >
-            Dark
-          </Text>
+          <Text style={{ color: '#333', fontSize: 12 }}>Dark</Text>
         </View>
       </View>
       <ThemeProvider>
@@ -78,15 +67,7 @@ const ThemeToggleDecorator = (Story) => {
 };
 
 const preview: Preview = {
-  decorators: [ThemeToggleDecorator],
-  parameters: {
-    controls: {
-      matchers: {
-        color: /(background|color)$/i,
-        date: /Date$/,
-      },
-    },
-  },
+  decorators: [ThemeAndHomeDecorator],
 };
 
 export default preview;
