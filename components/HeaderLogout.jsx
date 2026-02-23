@@ -1,7 +1,7 @@
 import { useRouter } from 'expo-router';
 import { useLayoutStyles } from '@/ui/styles';
 import { useAuth } from '@/contexts/AuthContext';
-import { TouchableOpacity, Text } from 'react-native';
+import { Pressable, Text } from 'react-native';
 
 export const HeaderLogout = () => {
   const { logout } = useAuth();
@@ -14,8 +14,14 @@ export const HeaderLogout = () => {
   };
 
   return (
-    <TouchableOpacity style={layoutStyles.logoutButton} onPress={handleLogout}>
+    <Pressable
+      onPress={handleLogout}
+      style={({ pressed }) => ({
+        ...layoutStyles.logoutButton,
+        opacity: pressed ? 0.7 : 1,
+      })}
+    >
       <Text style={layoutStyles.logoutButtonText}>Logout</Text>
-    </TouchableOpacity>
+    </Pressable>
   );
 };

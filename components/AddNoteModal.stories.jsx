@@ -1,7 +1,7 @@
 import React from 'react';
 import { fn } from 'storybook/test';
 import AddNoteModal from './AddNoteModal';
-import { Text, TouchableOpacity, View } from 'react-native';
+import { Text, Pressable, View } from 'react-native';
 
 const AddNoteModalWithState = (args) => {
   const [modalVisible, setModalVisible] = React.useState(true);
@@ -9,7 +9,7 @@ const AddNoteModalWithState = (args) => {
 
   return (
     <View style={{ flex: 1 }}>
-      <TouchableOpacity
+      <Pressable
         onPress={() => setModalVisible(true)}
         style={{
           padding: 12,
@@ -19,7 +19,7 @@ const AddNoteModalWithState = (args) => {
         }}
       >
         <Text style={{ color: '#fff' }}>Show Modal</Text>
-      </TouchableOpacity>
+      </Pressable>
       <AddNoteModal
         {...args}
         modalVisible={modalVisible}

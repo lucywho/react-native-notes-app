@@ -7,7 +7,7 @@ import {
   Appearance,
   Switch,
   Text,
-  TouchableOpacity,
+  Pressable,
   useColorScheme,
   View,
 } from 'react-native';
@@ -36,16 +36,17 @@ const ThemeAndHomeDecorator = (Story) => {
           borderBottomColor: '#ccc',
         }}
       >
-        <TouchableOpacity
+        <Pressable
           onPress={() => router.replace('/')}
-          style={{
+          style={({ pressed }) => ({
             paddingHorizontal: 12,
             paddingVertical: 6,
             marginRight: 8,
-          }}
+            opacity: pressed ? 0.7 : 1,
+          })}
         >
           <Text style={{ color: '#007AFF' }}>← Home</Text>
-        </TouchableOpacity>
+        </Pressable>
         <View style={{ flexDirection: 'row', alignItems: 'center', gap: 6 }}>
           <Text style={{ color: '#333', fontSize: 12 }}>Light</Text>
           <Switch

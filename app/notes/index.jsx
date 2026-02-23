@@ -8,7 +8,7 @@ import AddNoteModal from '@/components/AddNoteModal';
 import { useButtonStyles, useStyles } from '@/ui/styles';
 import {
   Text,
-  TouchableOpacity,
+  Pressable,
   View,
   Alert,
   ActivityIndicator,
@@ -152,11 +152,12 @@ const NoteScreen = () => {
         >
           Check your inbox for the verification link we sent you.
         </Text>
-        <TouchableOpacity
+        <Pressable
           testID='notes-resend-verification'
-          style={[
-            buttonStyles.button,
+          style={({ pressed }) => [
+            ...buttonStyles.button,
             { backgroundColor: theme.primaryButtonBackground },
+            { opacity: pressed ? 0.7 : 1 },
           ]}
           onPress={handleResendVerification}
           disabled={resending}
@@ -164,13 +165,16 @@ const NoteScreen = () => {
           <Text style={buttonStyles.buttonText}>
             {resending ? 'Sending...' : 'Resend verification email'}
           </Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          style={[styles.subTitle, { marginTop: 16 }]}
+        </Pressable>
+        <Pressable
+          style={({ pressed }) => [
+            styles.subTitle,
+            { marginTop: 16, opacity: pressed ? 0.7 : 1 },
+          ]}
           onPress={handleRefreshAfterVerify}
         >
-          <Text style={styles.linkText}>I've verified my email</Text>
-        </TouchableOpacity>
+          <Text style={styles.linkText}>I&apos;ve verified my email</Text>
+        </Pressable>
       </View>
     );
   }
@@ -196,15 +200,18 @@ const NoteScreen = () => {
           </>
         )}
       </View>
-      <TouchableOpacity
+      <Pressable
         testID='notes-add-button'
-        style={
-          isLandscape ? buttonStyles.landscapeAddButton : buttonStyles.addButton
-        }
+        style={({ pressed }) => ({
+          ...(isLandscape
+            ? buttonStyles.landscapeAddButton
+            : buttonStyles.addButton),
+          opacity: pressed ? 0.7 : 1,
+        })}
         onPress={() => setModalVisible(true)}
       >
         <Text style={buttonStyles.addButtonText}>+ Add Note</Text>
-      </TouchableOpacity>
+      </Pressable>
 
       <AddNoteModal
         modalVisible={modalVisible}

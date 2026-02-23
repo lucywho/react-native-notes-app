@@ -1,6 +1,6 @@
 import { useStyles } from '@/ui/styles';
 import { useState, useRef } from 'react';
-import { Text, TouchableOpacity, View, TextInput } from 'react-native';
+import { Text, Pressable, View, TextInput } from 'react-native';
 
 const NoteItem = ({ note, onDelete, onEdit }) => {
   const styles = useStyles();
@@ -32,7 +32,7 @@ const NoteItem = ({ note, onDelete, onEdit }) => {
       )}
       <View style={styles.noteActions}>
         {isEditing ? (
-          <TouchableOpacity
+          <Pressable
             testID='note-item-save'
             onPress={() => {
               handleSave(editedText);
@@ -40,22 +40,16 @@ const NoteItem = ({ note, onDelete, onEdit }) => {
             }}
           >
             <Text style={styles.editNoteText}>💾</Text>
-          </TouchableOpacity>
+          </Pressable>
         ) : (
-          <TouchableOpacity
-            testID='note-item-edit'
-            onPress={() => setIsEditing(true)}
-          >
+          <Pressable testID='note-item-edit' onPress={() => setIsEditing(true)}>
             <Text style={styles.editNoteText}>✏️</Text>
-          </TouchableOpacity>
+          </Pressable>
         )}
 
-        <TouchableOpacity
-          testID='note-item-delete'
-          onPress={() => onDelete(note.$id)}
-        >
+        <Pressable testID='note-item-delete' onPress={() => onDelete(note.$id)}>
           <Text style={styles.deleteNoteText}>❌</Text>
-        </TouchableOpacity>
+        </Pressable>
       </View>
     </View>
   );

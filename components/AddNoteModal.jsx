@@ -4,7 +4,7 @@ import {
   Modal,
   Text,
   TextInput,
-  TouchableOpacity,
+  Pressable,
   View,
   useWindowDimensions,
 } from 'react-native';
@@ -61,11 +61,12 @@ const AddNoteModal = ({
                 : buttonStyles.buttonContainer
             }
           >
-            <TouchableOpacity
+            <Pressable
               testID='add-note-cancel'
-              style={[
+              style={({ pressed }) => [
                 buttonStyles.cancelButton,
                 isLandscape && { maxHeight: 50 },
+                { opacity: pressed ? 0.7 : 1 },
               ]}
               onPress={() => {
                 setNewNote('');
@@ -73,19 +74,20 @@ const AddNoteModal = ({
               }}
             >
               <Text style={buttonStyles.buttonText}>Cancel</Text>
-            </TouchableOpacity>
-            <TouchableOpacity
+            </Pressable>
+            <Pressable
               testID='add-note-save'
-              style={[
+              style={({ pressed }) => [
                 buttonStyles.saveButton,
                 isLandscape && { maxHeight: 50 },
+                { opacity: pressed ? 0.7 : 1 },
               ]}
               onPress={() => {
                 addNote();
               }}
             >
               <Text style={buttonStyles.buttonText}>Save Note</Text>
-            </TouchableOpacity>
+            </Pressable>
           </View>
         </View>
       </View>

@@ -9,7 +9,7 @@ import { useButtonStyles, useStyles } from '@/ui/styles';
 import {
   Text,
   TextInput,
-  TouchableOpacity,
+  Pressable,
   Alert,
   KeyboardAvoidingView,
   Platform,
@@ -213,7 +213,7 @@ const AuthScreen = () => {
                   secureTextEntry={!showPassword}
                   textContentType='password'
                 />
-                <TouchableOpacity
+                <Pressable
                   testID='auth-password-visibility-toggle'
                   accessibilityLabel={
                     showPassword ? 'Hide password' : 'Show password'
@@ -227,7 +227,7 @@ const AuthScreen = () => {
                     size={18}
                     color={theme.secondaryText}
                   />
-                </TouchableOpacity>
+                </Pressable>
               </View>
               {errors.password && (
                 <Text style={styles.errorText}>{errors.password.message}</Text>
@@ -277,7 +277,7 @@ const AuthScreen = () => {
                     secureTextEntry={!showPassword}
                     textContentType='password'
                   />
-                  <TouchableOpacity
+                  <Pressable
                     testID='auth-confirm-password-visibility-toggle'
                     accessibilityLabel={
                       showPassword ? 'Hide password' : 'Show password'
@@ -291,7 +291,7 @@ const AuthScreen = () => {
                       size={18}
                       color={theme.secondaryText}
                     />
-                  </TouchableOpacity>
+                  </Pressable>
                 </View>
                 {errors.confirmPassword && (
                   <Text style={styles.errorText}>
@@ -303,14 +303,14 @@ const AuthScreen = () => {
           />
         )}
 
-        <TouchableOpacity
+        <Pressable
           testID='auth-submit-button'
-          style={[
-            buttonStyles.button,
+          style={({ pressed }) => [
             {
+              ...buttonStyles.button,
               backgroundColor: theme.secondaryButtonBackground,
               marginTop: 20,
-              opacity: isValid ? 1 : 0.5,
+              opacity: pressed ? 0.7 : isValid ? 1 : 0.5,
             },
           ]}
           onPress={handleSubmit(onSubmit)}
@@ -319,9 +319,9 @@ const AuthScreen = () => {
           <Text style={buttonStyles.buttonText}>
             {isRegistering ? 'Sign Up' : 'Login'}
           </Text>
-        </TouchableOpacity>
+        </Pressable>
 
-        <TouchableOpacity
+        <Pressable
           testID='auth-toggle-mode'
           onPress={() => setIsRegistering(!isRegistering)}
         >
@@ -338,7 +338,7 @@ const AuthScreen = () => {
               </Text>
             )}
           </Text>
-        </TouchableOpacity>
+        </Pressable>
       </ScrollView>
     </KeyboardAvoidingView>
   );

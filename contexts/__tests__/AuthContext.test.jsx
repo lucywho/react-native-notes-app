@@ -5,7 +5,7 @@ import {
   waitFor,
   fireEvent,
 } from '@testing-library/react-native';
-import { Text, TouchableOpacity } from 'react-native';
+import { Text, Pressable } from 'react-native';
 import { AuthProvider, useAuth } from '../AuthContext';
 import authService from '@/services/authService';
 
@@ -84,12 +84,12 @@ describe('AuthContext', () => {
         return (
           <>
             <Text testID='user'>{user ? user.email : 'no-user'}</Text>
-            <TouchableOpacity
+            <Pressable
               testID='login-trigger'
               onPress={() => login('test@test.com', 'password123')}
             >
               <Text>Login</Text>
-            </TouchableOpacity>
+            </Pressable>
           </>
         );
       };
@@ -130,14 +130,14 @@ describe('AuthContext', () => {
       const TestConsumerWithLogin = () => {
         const { login } = useAuth();
         return (
-          <TouchableOpacity
+          <Pressable
             testID='login-trigger'
             onPress={async () => {
               loginResult = await login('test@test.com', 'wrong');
             }}
           >
             <Text>Login</Text>
-          </TouchableOpacity>
+          </Pressable>
         );
       };
 
@@ -172,14 +172,14 @@ describe('AuthContext', () => {
       const TestConsumerWithRegister = () => {
         const { register } = useAuth();
         return (
-          <TouchableOpacity
+          <Pressable
             testID='register-trigger'
             onPress={async () => {
               registerResult = await register('test@test.com', 'password123');
             }}
           >
             <Text>Register</Text>
-          </TouchableOpacity>
+          </Pressable>
         );
       };
 
@@ -214,12 +214,12 @@ describe('AuthContext', () => {
         return (
           <>
             <Text testID='user'>{user ? user.email : 'no-user'}</Text>
-            <TouchableOpacity
+            <Pressable
               testID='register-trigger'
               onPress={() => register('test@test.com', 'password123')}
             >
               <Text>Register</Text>
-            </TouchableOpacity>
+            </Pressable>
           </>
         );
       };
@@ -269,9 +269,9 @@ describe('AuthContext', () => {
         return (
           <>
             <Text testID='user'>{user ? user.email : 'no-user'}</Text>
-            <TouchableOpacity testID='logout-trigger' onPress={() => logout()}>
+            <Pressable testID='logout-trigger' onPress={() => logout()}>
               <Text>Logout</Text>
-            </TouchableOpacity>
+            </Pressable>
           </>
         );
       };

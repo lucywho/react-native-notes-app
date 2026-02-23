@@ -4,13 +4,7 @@ import { useAuth } from '@/contexts/AuthContext';
 import { useTheme } from '@/contexts/ThemeContext';
 import PostItImage from '@/assets/images/post-it.png';
 import { useButtonStyles, useStyles } from '@/ui/styles';
-import {
-  Image,
-  Text,
-  TouchableOpacity,
-  View,
-  ActivityIndicator,
-} from 'react-native';
+import { Image, Text, Pressable, View, ActivityIndicator } from 'react-native';
 
 const HomeScreen = () => {
   const { user, loading } = useAuth();
@@ -41,24 +35,29 @@ const HomeScreen = () => {
       <Text style={styles.subTitle}>
         Create and manage your notes effortlessly
       </Text>
-      <TouchableOpacity
+      <Pressable
         testID='home-get-started'
-        style={buttonStyles.button}
+        style={({ pressed }) => ({
+          ...buttonStyles.button,
+          opacity: pressed ? 0.7 : 1,
+        })}
         onPress={() => router.push('/notes')}
       >
         <Text style={buttonStyles.buttonText}>Get Started</Text>
-      </TouchableOpacity>
+      </Pressable>
       {__DEV__ && (
-        <TouchableOpacity
+        <Pressable
           testID='home-storybook'
-          style={[
-            buttonStyles.button,
-            { backgroundColor: 'firebrick', opacity: 0.5, marginTop: 20 },
-          ]}
+          style={({ pressed }) => ({
+            ...buttonStyles.button,
+            backgroundColor: 'firebrick',
+            opacity: pressed ? 0.7 : 0.5,
+            marginTop: 20,
+          })}
           onPress={() => router.push('/storybook')}
         >
           <Text style={buttonStyles.buttonText}>Storybook</Text>
-        </TouchableOpacity>
+        </Pressable>
       )}
     </View>
   );
