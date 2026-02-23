@@ -1,8 +1,9 @@
 import { z } from 'zod';
-import { useState, useEffect, useRef } from 'react';
+import * as Haptics from 'expo-haptics';
 import { useRouter } from 'expo-router';
 import { useAuth } from '@/contexts/AuthContext';
 import { useTheme } from '@/contexts/ThemeContext';
+import { useState, useEffect, useRef } from 'react';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm, Controller } from 'react-hook-form';
 import { useButtonStyles, useStyles } from '@/ui/styles';
@@ -323,7 +324,14 @@ const AuthScreen = () => {
 
         <Pressable
           testID='auth-toggle-mode'
-          onPress={() => setIsRegistering(!isRegistering)}
+          onPress={() => {
+            try {
+              Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
+            } catch {
+              // Do nothing if haptics fail
+            }
+            setIsRegistering(!isRegistering);
+          }}
         >
           <Text style={[styles.subTitle, { marginTop: 20 }]}>
             {isRegistering ? (

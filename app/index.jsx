@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
 import { useRouter } from 'expo-router';
+import * as Haptics from 'expo-haptics';
 import { useAuth } from '@/contexts/AuthContext';
 import { useTheme } from '@/contexts/ThemeContext';
 import PostItImage from '@/assets/images/post-it.png';
@@ -41,7 +42,14 @@ const HomeScreen = () => {
           ...buttonStyles.button,
           opacity: pressed ? 0.7 : 1,
         })}
-        onPress={() => router.push('/notes')}
+        onPress={() => {
+          try {
+            Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Heavy);
+          } catch {
+            // Do nothing if haptics fail
+          }
+          router.push('/notes');
+        }}
       >
         <Text style={buttonStyles.buttonText}>Get Started</Text>
       </Pressable>
