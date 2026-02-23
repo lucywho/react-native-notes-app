@@ -1,7 +1,6 @@
 import { useRouter } from 'expo-router';
 import { useState, useEffect } from 'react';
 import NoteList from '@/components/NoteList';
-import noteService from '@/services/noteService';
 import { useAuth } from '@/contexts/AuthContext';
 import { useTheme } from '@/contexts/ThemeContext';
 import AddNoteModal from '@/components/AddNoteModal';
@@ -14,6 +13,12 @@ import {
   ActivityIndicator,
   useWindowDimensions,
 } from 'react-native';
+import {
+  useReadNotes,
+  useCreateNote,
+  useUpdateNote,
+  useDeleteNote,
+} from '@/hooks';
 
 const NoteScreen = () => {
   const router = useRouter();
@@ -24,18 +29,19 @@ const NoteScreen = () => {
     checkUser,
   } = useAuth();
   const { width, height } = useWindowDimensions();
-  const isLandscape = width > height;
   const styles = useStyles();
   const buttonStyles = useButtonStyles();
   const { theme } = useTheme();
+  const { data: notes = [], isLoading, error } = useReadNotes(user?.$id);
+  const createNote = useCreateNote(user?.$id);
+  const updateNote = useUpdateNote(user?.$id);
+  const deleteNote = useDeleteNote(user?.$id);
 
-  const [notes, setNotes] = useState([]);
   const [modalVisible, setModalVisible] = useState(false);
   const [newNote, setNewNote] = useState('');
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(null);
   const [resending, setResending] = useState(false);
 
+  const isLandscape = width > height;
   const isUnverified = user && user.emailVerification === false;
 
   useEffect(() => {
@@ -43,12 +49,6 @@ const NoteScreen = () => {
       router.replace('/auth');
     }
   }, [user, authLoading]);
-
-  useEffect(() => {
-    if (user && user.emailVerification !== false) {
-      fetchNotes();
-    }
-  }, [user]);
 
   const handleResendVerification = async () => {
     setResending(true);
@@ -65,37 +65,18 @@ const NoteScreen = () => {
     checkUser();
   };
 
-  const fetchNotes = async () => {
-    setLoading(true);
-
-    const response = await noteService.getNotes(user.$id);
-
-    if (response.error) {
-      setError(response.error);
-      Alert.alert('Error: ', response.error);
-    } else {
-      setNotes(response.data);
-      setError(null);
-    }
-
-    setLoading(false);
-  };
-
   const addNote = async () => {
     if (newNote.trim() === '') {
       return;
     }
 
-    const response = await noteService.createNote(user.$id, newNote);
-
-    if (response.error) {
-      Alert.alert('Error: ', response.error);
-    } else {
-      setNotes([response.data, ...notes]);
+    try {
+      await createNote.mutateAsync({ text: newNote.trim() });
+      setNewNote('');
+      setModalVisible(false);
+    } catch (error) {
+      Alert.alert('Error: ', error.message);
     }
-
-    setNewNote('');
-    setModalVisible(false);
   };
 
   const editNote = async (id, newText) => {
@@ -104,19 +85,14 @@ const NoteScreen = () => {
       return;
     }
 
-    const response = await noteService.updateNote(id, newText);
-    if (response?.error) {
-      Alert.alert('Error: ', response.error);
-    } else {
-      setNotes((prevNotes) =>
-        prevNotes.map((note) =>
-          note.$id === id ? { ...note, text: response.data.text } : note,
-        ),
-      );
+    try {
+      await updateNote.mutateAsync({ id, text: newText.trim() });
+    } catch (err) {
+      Alert.alert('Error', err.message);
     }
   };
 
-  const deleteNote = async (id) => {
+  const removeNote = (id) => {
     Alert.alert('Delete Note', 'are you sure you want to delete this note?', [
       {
         text: 'Cancel',
@@ -126,11 +102,10 @@ const NoteScreen = () => {
         text: 'Delete',
         style: 'destructive',
         onPress: async () => {
-          const response = await noteService.deleteNote(id);
-          if (response.error) {
-            Alert.alert('Error: ', response.error);
-          } else {
-            setNotes(notes.filter((note) => note.$id !== id));
+          try {
+            await deleteNote.mutateAsync(id);
+          } catch (err) {
+            Alert.alert('Error', err.message);
           }
         },
       },
@@ -155,7 +130,7 @@ const NoteScreen = () => {
         <Pressable
           testID='notes-resend-verification'
           style={({ pressed }) => [
-            ...buttonStyles.button,
+            buttonStyles.button,
             { backgroundColor: theme.primaryButtonBackground },
             { opacity: pressed ? 0.7 : 1 },
           ]}
@@ -182,11 +157,13 @@ const NoteScreen = () => {
   return (
     <View style={isLandscape ? styles.landscapeContainer : styles.container}>
       <View style={{ flex: 1 }}>
-        {loading ? (
-          <ActivityIndicator size='large' color={theme.activityIndicator} />
+        {isLoading ? (
+          <View testID='notes-loading'>
+            <ActivityIndicator size='large' color={theme.activityIndicator} />
+          </View>
         ) : (
           <>
-            {error && <Text style={styles.errorText}>{error}</Text>}
+            {error && <Text style={styles.errorText}>{error?.message}</Text>}
             {notes.length === 0 ? (
               <>
                 <Text style={styles.errorText}>No notes found</Text>
@@ -195,7 +172,7 @@ const NoteScreen = () => {
                 </Text>
               </>
             ) : (
-              <NoteList notes={notes} onDelete={deleteNote} onEdit={editNote} />
+              <NoteList notes={notes} onDelete={removeNote} onEdit={editNote} />
             )}
           </>
         )}

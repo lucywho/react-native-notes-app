@@ -1,9 +1,15 @@
 import React from 'react';
 import { render } from '@testing-library/react-native';
-import { ThemeProvider } from '@/contexts/ThemeContext';
+import { ThemeProvider, AuthProvider, QueryProvider } from '@/contexts';
 
 const AllTheProviders = ({ children }) => {
-  return <ThemeProvider>{children}</ThemeProvider>;
+  return (
+    <QueryProvider>
+      <ThemeProvider>
+        <AuthProvider>{children}</AuthProvider>
+      </ThemeProvider>
+    </QueryProvider>
+  );
 };
 
 const customRender = (ui, options = {}) =>

@@ -5,8 +5,13 @@ import { StatusBar } from 'expo-status-bar';
 import { useLayoutStyles } from '@/ui/styles';
 import { useWindowDimensions } from 'react-native';
 import { HeaderLogout } from '@/components/HeaderLogout';
-import { AuthProvider, useAuth } from '@/contexts/AuthContext';
-import { ThemeProvider, useTheme } from '@/contexts/ThemeContext';
+import {
+  AuthProvider,
+  useAuth,
+  ThemeProvider,
+  useTheme,
+  QueryProvider,
+} from '@/contexts';
 
 const AppContent = () => {
   const { colorScheme, theme } = useTheme();
@@ -45,9 +50,11 @@ const AppContent = () => {
 const RootLayout = () => {
   return (
     <ThemeProvider>
-      <AuthProvider>
-        <AppContent />
-      </AuthProvider>
+      <QueryProvider>
+        <AuthProvider>
+          <AppContent />
+        </AuthProvider>
+      </QueryProvider>
     </ThemeProvider>
   );
 };
