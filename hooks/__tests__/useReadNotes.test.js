@@ -9,7 +9,7 @@ jest.mock('@/services/noteService');
 const createWrapper = () => {
   const queryClient = new QueryClient({
     defaultOptions: {
-      queries: { retry: false },
+      queries: { retry: false, gcTime: Infinity },
     },
   });
   return function Wrapper({ children }) {

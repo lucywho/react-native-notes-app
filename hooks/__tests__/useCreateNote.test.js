@@ -7,7 +7,12 @@ import noteService from '@/services/noteService';
 jest.mock('@/services/noteService');
 
 const createWrapper = () => {
-  const queryClient = new QueryClient();
+  const queryClient = new QueryClient({
+    defaultOptions: {
+      queries: { gcTime: Infinity },
+      mutations: { gcTime: Infinity },
+    },
+  });
   return function Wrapper({ children }) {
     return (
       <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
