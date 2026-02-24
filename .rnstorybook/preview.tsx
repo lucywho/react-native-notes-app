@@ -1,30 +1,23 @@
 import React from 'react';
 import { useRouter } from 'expo-router';
+import { useThemeStore } from '../stores/themeStore';
 import { AuthProvider } from '../contexts/AuthContext';
-import { ThemeProvider } from '../contexts/ThemeContext';
+import { Switch, Text, Pressable, View } from 'react-native';
+
 import type { Preview } from '@storybook/react-native';
-import {
-  Appearance,
-  Switch,
-  Text,
-  Pressable,
-  useColorScheme,
-  View,
-} from 'react-native';
 
 const ThemeAndHomeDecorator = (Story) => {
   const router = useRouter();
-  const colorScheme = useColorScheme();
+  const theme = useThemeStore((state) => state.theme);
+  const colorScheme = useThemeStore((state) => state.colorScheme);
   const isDark = colorScheme === 'dark';
 
   const setTheme = (value: 'light' | 'dark') => {
-    if (Appearance.setColorScheme) {
-      Appearance.setColorScheme(value);
-    }
+    useThemeStore.getState().setColorScheme(value);
   };
 
   return (
-    <View style={{ flex: 1 }}>
+    <View style={{ flex: 1, backgroundColor: theme.primaryBackground }}>
       <View
         style={{
           flexDirection: 'row',
@@ -51,18 +44,16 @@ const ThemeAndHomeDecorator = (Story) => {
           <Text style={{ color: '#333', fontSize: 12 }}>Light</Text>
           <Switch
             value={isDark}
-            onValueChange={(dark) => setTheme(dark ? 'dark' : 'light')}
+            onValueChange={() => setTheme(isDark ? 'light' : 'dark')}
             trackColor={{ false: '#ccc', true: '#007AFF' }}
             thumbColor='#fff'
           />
           <Text style={{ color: '#333', fontSize: 12 }}>Dark</Text>
         </View>
       </View>
-      <ThemeProvider>
-        <AuthProvider>
-          <Story />
-        </AuthProvider>
-      </ThemeProvider>
+      <AuthProvider>
+        <Story />
+      </AuthProvider>
     </View>
   );
 };

@@ -3,15 +3,11 @@ import { Stack } from 'expo-router';
 import * as SystemUI from 'expo-system-ui';
 import { StatusBar } from 'expo-status-bar';
 import { useLayoutStyles } from '@/ui/styles';
+import { ThemeStoreSync } from './themeStoreSync';
 import { useWindowDimensions } from 'react-native';
 import { HeaderLogout } from '@/components/HeaderLogout';
-import {
-  AuthProvider,
-  useAuth,
-  ThemeProvider,
-  useTheme,
-  QueryProvider,
-} from '@/contexts';
+import { ThemeStoreHydration } from '@/ThemeStoreHydration';
+import { AuthProvider, useAuth, useTheme, QueryProvider } from '@/contexts';
 
 const AppContent = () => {
   const { colorScheme, theme } = useTheme();
@@ -49,13 +45,13 @@ const AppContent = () => {
 
 const RootLayout = () => {
   return (
-    <ThemeProvider>
-      <QueryProvider>
-        <AuthProvider>
-          <AppContent />
-        </AuthProvider>
-      </QueryProvider>
-    </ThemeProvider>
+    <QueryProvider>
+      <ThemeStoreHydration />
+      <ThemeStoreSync />
+      <AuthProvider>
+        <AppContent />
+      </AuthProvider>
+    </QueryProvider>
   );
 };
 

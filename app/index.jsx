@@ -3,6 +3,7 @@ import { useRouter } from 'expo-router';
 import * as Haptics from 'expo-haptics';
 import { useAuth } from '@/contexts/AuthContext';
 import { useTheme } from '@/contexts/ThemeContext';
+import { useThemeStore } from '@/stores/themeStore';
 import PostItImage from '@/assets/images/post-it.png';
 import { useButtonStyles, useStyles } from '@/ui/styles';
 import { Image, Text, Pressable, View, ActivityIndicator } from 'react-native';
@@ -12,7 +13,8 @@ const HomeScreen = () => {
   const router = useRouter();
   const styles = useStyles();
   const buttonStyles = useButtonStyles();
-  const { theme } = useTheme();
+  const { theme, colorScheme } = useTheme();
+  const isDark = colorScheme === 'dark';
 
   useEffect(() => {
     if (!loading && user) {
@@ -67,6 +69,19 @@ const HomeScreen = () => {
           <Text style={buttonStyles.buttonText}>Storybook</Text>
         </Pressable>
       )}
+      <Pressable
+        style={[
+          buttonStyles.button,
+          { backgroundColor: 'lavender', marginTop: 20 },
+        ]}
+        onPress={() =>
+          isDark
+            ? useThemeStore.getState().setColorScheme('light')
+            : useThemeStore.getState().setColorScheme('dark')
+        }
+      >
+        <Text>{isDark ? 'Switch to Light' : 'Switch to Dark'}</Text>
+      </Pressable>
     </View>
   );
 };
